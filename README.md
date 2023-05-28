@@ -1,5 +1,10 @@
 # youth-week6
 
+---
+### [branch-info](https://github.com/jhsong2580/youth-week6/blob/main/readmeSource/HISTORY.md)
+
+---
+
 ### DB Schema
 ![schema.png](readmeSource/schema.png)
 - member : 사용자 정보 

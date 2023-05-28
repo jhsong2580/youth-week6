@@ -25,10 +25,23 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	implementation 'com.mysql:mysql-connector-j'
+
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+
+	/* Mem Database For Test */
+	testImplementation 'com.h2database:h2'
+
+	/* Acceptance Test*/
+	testImplementation 'io.rest-assured:rest-assured:3.3.0'
+
+	/* import com.google.common.base.CaseFormat; */
+	testImplementation 'com.google.guava:guava:11.0.2'
 }
 
 tasks.named('test') {
