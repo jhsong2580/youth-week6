@@ -1,4 +1,4 @@
-package youth.week6.organizer.entity;
+package youth.week6.member.organizer.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,4 +1,4 @@
-package youth.week6.participant.entity;
+package youth.week6.member.participant.entity;
 
 
 import javax.persistence.Column;

@@ -1,4 +1,4 @@
-package youth.week6.member.repository;
+package youth.week6.member.members.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -8,10 +8,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import youth.week6.member.entity.Members;
-import youth.week6.member.entity.Sex;
-import youth.week6.member.entity.embeded.AuthenticationInfo;
-import youth.week6.member.entity.embeded.MemberInfo;
+import youth.week6.member.member.entity.Members;
+import youth.week6.member.member.entity.Sex;
+import youth.week6.member.member.entity.embeded.AuthenticationInfo;
+import youth.week6.member.member.entity.embeded.MemberInfo;
+import youth.week6.member.member.repository.MembersRepository;
 import youth.week6.testUtils.SpringBootTestHelper;
 
 

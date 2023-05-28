@@ -1,4 +1,4 @@
-package youth.week6.member.entity.embeded;
+package youth.week6.member.member.entity.embeded;
 
 import java.util.Objects;
 import javax.persistence.Column;

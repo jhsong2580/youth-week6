@@ -1,6 +1,5 @@
-package youth.week6.participant.entity;
+package youth.week6.member.participant.entity;
 
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

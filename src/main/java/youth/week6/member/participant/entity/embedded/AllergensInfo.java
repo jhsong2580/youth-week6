@@ -1,4 +1,4 @@
-package youth.week6.participant.entity.embedded;
+package youth.week6.member.participant.entity.embedded;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,9 +11,9 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import youth.week6.participant.entity.Allergens;
-import youth.week6.participant.entity.Participants;
-import youth.week6.participant.entity.ParticipantsAllergens;
+import youth.week6.member.participant.entity.Allergens;
+import youth.week6.member.participant.entity.ParticipantsAllergens;
+import youth.week6.member.participant.entity.Participants;
 
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

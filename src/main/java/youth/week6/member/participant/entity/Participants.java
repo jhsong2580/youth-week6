@@ -1,6 +1,5 @@
-package youth.week6.participant.entity;
+package youth.week6.member.participant.entity;
 
-import java.sql.Blob;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -12,7 +11,7 @@ import javax.persistence.Lob;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import youth.week6.participant.entity.embedded.AllergensInfo;
+import youth.week6.member.participant.entity.embedded.AllergensInfo;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

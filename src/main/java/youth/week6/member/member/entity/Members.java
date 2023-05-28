@@ -1,6 +1,5 @@
-package youth.week6.member.entity;
+package youth.week6.member.member.entity;
 
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -10,8 +9,8 @@ import javax.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import youth.week6.member.entity.embeded.AuthenticationInfo;
-import youth.week6.member.entity.embeded.MemberInfo;
+import youth.week6.member.member.entity.embeded.AuthenticationInfo;
+import youth.week6.member.member.entity.embeded.MemberInfo;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

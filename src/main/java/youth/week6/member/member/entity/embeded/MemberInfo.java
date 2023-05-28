@@ -1,4 +1,4 @@
-package youth.week6.member.entity.embeded;
+package youth.week6.member.member.entity.embeded;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -9,7 +9,7 @@ import javax.persistence.Enumerated;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import youth.week6.member.entity.Sex;
+import youth.week6.member.member.entity.Sex;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

@@ -1,4 +1,4 @@
-package youth.week6.participant.repository;
+package youth.week6.member.participant.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static youth.week6.testUtils.AllergensFixture.BEEF;
@@ -24,13 +24,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import youth.week6.participant.entity.Allergens;
-import youth.week6.participant.entity.Participants;
+import youth.week6.member.participant.entity.Allergens;
+import youth.week6.member.participant.entity.Participants;
+import youth.week6.member.participant.repository.ParticipantsRepository;
 import youth.week6.testUtils.AllergensFixture;
 import youth.week6.testUtils.SpringBootTestHelper;
 
