@@ -1,4 +1,4 @@
-package youth.week6.member.testUtils;
+package youth.week6.testUtils;
 
 import com.google.common.base.CaseFormat;
 import java.util.HashMap;
