@@ -1,12 +1,10 @@
 spring:
-  h2:
-    console:
-      enabled: true
   datasource:
     url: jdbc:mysql://localhost:4306/week6?useSSL=false&useUnicode=yes&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: root
     password: new1234!
   jpa:
+    show-sql: true
     open-in-view: false
     hibernate:
       ddl-auto: update
