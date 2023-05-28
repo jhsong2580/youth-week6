@@ -33,6 +33,15 @@ dependencies {
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+
+	/* Mem Database For Test */
+	testImplementation 'com.h2database:h2'
+
+	/* Acceptance Test*/
+	testImplementation 'io.rest-assured:rest-assured:3.3.0'
+
+	/* import com.google.common.base.CaseFormat; */
+	testImplementation 'com.google.guava:guava:11.0.2'
 }
 
 tasks.named('test') {
