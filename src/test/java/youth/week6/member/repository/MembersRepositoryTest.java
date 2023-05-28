@@ -12,10 +12,10 @@ import youth.week6.member.entity.Members;
 import youth.week6.member.entity.Sex;
 import youth.week6.member.entity.embeded.AuthenticationInfo;
 import youth.week6.member.entity.embeded.MemberInfo;
-import youth.week6.member.testUtils.AcceptanceTest;
+import youth.week6.testUtils.SpringBootTestHelper;
 
 
-class MembersRepositoryTest extends AcceptanceTest {
+class MembersRepositoryTest extends SpringBootTestHelper {
 
     @Autowired
     private MembersRepository membersRepository;
