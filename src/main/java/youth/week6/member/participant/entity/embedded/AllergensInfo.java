@@ -23,15 +23,11 @@ public class AllergensInfo {
     private List<ParticipantsAllergens> participantsAllergens = new ArrayList<>();
 
     public AllergensInfo(Participants participants, List<Allergens> allergens) {
-        participantsAllergens = allergens.stream()
-            .map(allergen -> new ParticipantsAllergens(participants, allergen))
-            .collect(Collectors.toList());
+        participantsAllergens = mergeParticipantsAndAllergens(participants, allergens);
     }
 
     public void update(Participants participants, List<Allergens> allergens) {
-        List<ParticipantsAllergens> newParticipantsAllergens = allergens.stream()
-            .map(allergen -> new ParticipantsAllergens(participants, allergen))
-            .collect(Collectors.toList());
+        List<ParticipantsAllergens> newParticipantsAllergens = mergeParticipantsAndAllergens(participants, allergens);
         sortParticipantsAllergensListByAllergensId(this.participantsAllergens);
         sortParticipantsAllergensListByAllergensId(newParticipantsAllergens);
 
@@ -41,10 +37,18 @@ public class AllergensInfo {
         participantsAllergens.addAll(temp);
     }
 
+    private List<ParticipantsAllergens> mergeParticipantsAndAllergens(Participants participants,
+        List<Allergens> allergens) {
+        return allergens.stream()
+            .map(allergen -> new ParticipantsAllergens(participants, allergen))
+            .collect(Collectors.toList());
+    }
+
     private void sortParticipantsAllergensListByAllergensId(
         List<ParticipantsAllergens> participantsAllergens) {
-        Collections.sort(participantsAllergens,
-            (o1, o2) -> Long.compare(o1.getAllergens().getId(), o2.getAllergens().getId()));
+        participantsAllergens.sort(
+            (o1, o2) -> Long.compare(o1.getAllergens().getId(), o2.getAllergens().getId())
+        );
     }
 
     private List<ParticipantsAllergens> deleteNotMatchAllergensAndGetNewAllergens(
@@ -75,7 +79,7 @@ public class AllergensInfo {
             ParticipantsAllergens newParticipantsAllergen = newParticipantsAllergens.get(new_index);
             Allergens newAllergens = newParticipantsAllergen.getAllergens();
 
-            if (savedAllergens.getId() == newAllergens.getId()) {
+            if (savedAllergens.getId().equals(newAllergens.getId())) {
                 ord_index++;
                 new_index++;
                 continue;
@@ -96,4 +100,9 @@ public class AllergensInfo {
         return Collections.unmodifiableList(this.participantsAllergens);
     }
 
+    public List<Allergens> getAllergens() {
+        return participantsAllergens.stream()
+            .map(ParticipantsAllergens::getAllergens)
+            .collect(Collectors.toUnmodifiableList());
+    }
 }

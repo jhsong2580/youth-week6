@@ -13,8 +13,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import youth.week6.member.participant.entity.embedded.AllergensInfo;
 
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 @Entity
 public class Participants {
 
@@ -36,5 +36,9 @@ public class Participants {
 
     public void updateAllergens(List<Allergens> allergens) {
         this.allergensInfo.update(this, allergens);
+    }
+
+    public List<Allergens> getAllergens() {
+        return this.allergensInfo.getAllergens();
     }
 }
