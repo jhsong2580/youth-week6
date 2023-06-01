@@ -1,6 +1,7 @@
 package youth.week6.member.member.dto;
 
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

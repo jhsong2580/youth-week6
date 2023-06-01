@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import youth.week6.member.member.dto.MemberJoinDto;
 import youth.week6.member.member.entity.Members;
 import youth.week6.member.member.entity.Sex;
 import youth.week6.member.member.entity.embeded.AuthenticationInfo;
@@ -25,12 +26,10 @@ class MembersRepositoryTest extends SpringBootTestHelper {
     @BeforeEach
     public void init() {
         super.init();
+        MemberJoinDto memberJoinDto = new MemberJoinDto("name", LocalDateTime.now(), Sex.FEMALE,
+            "id", "password", "email");
 
-        AuthenticationInfo authenticationInfo = new AuthenticationInfo("id", "password");
-        MemberInfo memberInfo = new MemberInfo("name", LocalDateTime.now(), Sex.FEMALE,
-            "email@email.com");
-
-        members = new Members(memberInfo, authenticationInfo);
+        members = Members.from(memberJoinDto);
 
         membersRepository.save(members);
     }
