@@ -25,6 +25,7 @@ class ParticipantServiceTest extends SpringBootTestHelper {
     private Map<AllergensFixture, Allergens> allAllergens;
     @BeforeEach
     public void init() {
+        super.init();
         super.savedAllergens();
         allAllergens = super.findAllAllergens();
     }
