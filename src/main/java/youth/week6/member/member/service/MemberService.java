@@ -6,8 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import youth.week6.member.member.dto.MemberDto;
 import youth.week6.member.member.dto.MemberJoinDto;
 import youth.week6.member.member.entity.Members;
-import youth.week6.member.member.entity.embeded.AuthenticationInfo;
-import youth.week6.member.member.entity.embeded.MemberInfo;
 import youth.week6.member.member.mapper.MemberToMemberDtoMapper;
 import youth.week6.member.member.repository.MembersRepository;
 
@@ -20,17 +18,8 @@ public class MemberService {
 
     @Transactional
     public MemberDto joinParticipants(MemberJoinDto memberJoinDto, long participantId) {
-        MemberInfo memberInfo = new MemberInfo(
-            memberJoinDto.getName(),
-            memberJoinDto.getBirthDate(),
-            memberJoinDto.getSex(),
-            memberJoinDto.getEmail()
-        );
+        Members members = Members.from(memberJoinDto);
 
-        AuthenticationInfo authenticationInfo = new AuthenticationInfo(
-            memberJoinDto.getIdentification(), memberJoinDto.getPassword());
-
-        Members members = new Members(memberInfo, authenticationInfo);
         members.mappingParticipantsInfo(participantId);
 
         membersRepository.save(members);
@@ -40,17 +29,8 @@ public class MemberService {
 
     @Transactional
     public MemberDto joinOrganizers(MemberJoinDto memberJoinDto, long organizersId) {
-        MemberInfo memberInfo = new MemberInfo(
-            memberJoinDto.getName(),
-            memberJoinDto.getBirthDate(),
-            memberJoinDto.getSex(),
-            memberJoinDto.getEmail()
-        );
+        Members members = Members.from(memberJoinDto);
 
-        AuthenticationInfo authenticationInfo = new AuthenticationInfo(
-            memberJoinDto.getIdentification(), memberJoinDto.getPassword());
-
-        Members members = new Members(memberInfo, authenticationInfo);
         members.mappingOrganizerInfo(organizersId);
 
         membersRepository.save(members);

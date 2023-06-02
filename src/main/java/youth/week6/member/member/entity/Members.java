@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import youth.week6.member.member.dto.MemberJoinDto;
 import youth.week6.member.member.entity.embeded.AuthenticationInfo;
 import youth.week6.member.member.entity.embeded.MemberInfo;
 
@@ -32,7 +33,20 @@ public class Members {
 
     private Long organizerId;
 
-    public Members(MemberInfo memberInfo, AuthenticationInfo authenticationInfo) {
+    public static Members from(MemberJoinDto memberJoinDto) {
+        MemberInfo memberInfo = new MemberInfo(
+            memberJoinDto.getName(),
+            memberJoinDto.getBirthDate(),
+            memberJoinDto.getSex(),
+            memberJoinDto.getEmail()
+        );
+        AuthenticationInfo authenticationInfo = new AuthenticationInfo(
+            memberJoinDto.getIdentification(), memberJoinDto.getPassword());
+
+        return new Members(memberInfo, authenticationInfo);
+    }
+
+    private Members(MemberInfo memberInfo, AuthenticationInfo authenticationInfo) {
         assert memberInfo != null;
         assert authenticationInfo != null;
         this.memberInfo = memberInfo;
