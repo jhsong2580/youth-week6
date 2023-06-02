@@ -1,4 +1,4 @@
-package youth.week6.testUtils;
+package youth.week6.testFixture;
 
 public enum AllergensFixture {
     BUCKWHEAT,

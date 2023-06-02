@@ -1,21 +1,21 @@
 package youth.week6.member.participant.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static youth.week6.testUtils.AllergensFixture.BEEF;
-import static youth.week6.testUtils.AllergensFixture.BUCKWHEAT;
-import static youth.week6.testUtils.AllergensFixture.CHICKEN;
-import static youth.week6.testUtils.AllergensFixture.EGG;
-import static youth.week6.testUtils.AllergensFixture.MACKEREL;
-import static youth.week6.testUtils.AllergensFixture.MUSSEL;
-import static youth.week6.testUtils.AllergensFixture.OYSTERS;
-import static youth.week6.testUtils.AllergensFixture.PEACH;
-import static youth.week6.testUtils.AllergensFixture.PEANUT;
-import static youth.week6.testUtils.AllergensFixture.SEASHELL;
-import static youth.week6.testUtils.AllergensFixture.SHRIMP;
-import static youth.week6.testUtils.AllergensFixture.SOYBEAN;
-import static youth.week6.testUtils.AllergensFixture.TOMATO;
-import static youth.week6.testUtils.AllergensFixture.WALNUT;
-import static youth.week6.testUtils.AllergensFixture.WHEAT;
+import static youth.week6.testFixture.AllergensFixture.BEEF;
+import static youth.week6.testFixture.AllergensFixture.BUCKWHEAT;
+import static youth.week6.testFixture.AllergensFixture.CHICKEN;
+import static youth.week6.testFixture.AllergensFixture.EGG;
+import static youth.week6.testFixture.AllergensFixture.MACKEREL;
+import static youth.week6.testFixture.AllergensFixture.MUSSEL;
+import static youth.week6.testFixture.AllergensFixture.OYSTERS;
+import static youth.week6.testFixture.AllergensFixture.PEACH;
+import static youth.week6.testFixture.AllergensFixture.PEANUT;
+import static youth.week6.testFixture.AllergensFixture.SEASHELL;
+import static youth.week6.testFixture.AllergensFixture.SHRIMP;
+import static youth.week6.testFixture.AllergensFixture.SOYBEAN;
+import static youth.week6.testFixture.AllergensFixture.TOMATO;
+import static youth.week6.testFixture.AllergensFixture.WALNUT;
+import static youth.week6.testFixture.AllergensFixture.WHEAT;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,8 +30,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import youth.week6.member.participant.entity.Allergens;
 import youth.week6.member.participant.entity.Participants;
-import youth.week6.member.participant.repository.ParticipantsRepository;
-import youth.week6.testUtils.AllergensFixture;
+import youth.week6.testFixture.AllergensFixture;
 import youth.week6.testUtils.SpringBootTestHelper;
 
 class AllergensRepositoryTest extends SpringBootTestHelper {
