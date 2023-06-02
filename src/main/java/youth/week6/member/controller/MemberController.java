@@ -8,13 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import youth.week6.member.dto.request.OrganizerMemberJoinRequestDto;
 import youth.week6.member.dto.request.ParticipantMemberJoinRequestDto;
+import youth.week6.member.dto.response.MemberJoinResponseDto;
 import youth.week6.member.mapper.MemberJoinRequestDtoToJoinDtoMapper;
 import youth.week6.member.mapper.OrganizerJoinRequestDtoToJoinDtoMapper;
 import youth.week6.member.mapper.ParticipantJoinRequestDtoToJoinDtoMapper;
@@ -57,7 +57,7 @@ public class MemberController {
 
         long memberId = memberFacadeService.join(memberJoinDto, participantJoinDto);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(memberId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new MemberJoinResponseDto(memberId));
 
     }
 
@@ -82,7 +82,7 @@ public class MemberController {
 
         long memberId = memberFacadeService.join(memberJoinDto, organizerJoinDto);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(memberId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new MemberJoinResponseDto(memberId));
 
     }
 }
