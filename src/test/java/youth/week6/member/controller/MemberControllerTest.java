@@ -3,6 +3,7 @@ package youth.week6.member.controller;
 import static youth.week6.testFixture.AllergensFixture.BEEF;
 import static youth.week6.testFixture.AllergensFixture.MILK;
 import static youth.week6.testUtils.acceptiontesetUtils.assertionUtils.MemberAcceptanceTestAssertionUtils.참여자_회원가입_확인됨;
+import static youth.week6.testUtils.acceptiontesetUtils.assertionUtils.MemberAcceptanceTestAssertionUtils.회원가입_중복지원_에러발생;
 import static youth.week6.testUtils.acceptiontesetUtils.sendUtils.MemberAcceptanceTestSendUtils.주최자_회원가입_요청;
 import static youth.week6.testUtils.acceptiontesetUtils.sendUtils.MemberAcceptanceTestSendUtils.참여자_회원가입_요청;
 
@@ -70,5 +71,21 @@ class MemberControllerTest extends SpringBootTestHelper {
 
         //then
         참여자_회원가입_확인됨(주최자_회원가입_요청_response, 예상_사용자_데이터베이스_아이디값);
+    }
+
+    @Test
+    public void 중복_회원가입 (){
+        //given
+        MemberJoinRequestDto 사용자_정보 = MemberFixture.사용자정보_정상입력.회원가입_사용자_요청전문();
+        OrganizerJoinRequestDto 주최자_정보 = OrganizerFixture.주최자정보_정상입력.회원가입_주최자_요청전문();
+        OrganizerMemberJoinRequestDto 요청전문 = new OrganizerMemberJoinRequestDto(
+            사용자_정보, 주최자_정보);
+        주최자_회원가입_요청(요청전문);
+
+        //when
+        ExtractableResponse<Response> 주최자_회원가입_요청_response = 주최자_회원가입_요청(요청전문);
+
+        //then
+        회원가입_중복지원_에러발생(주최자_회원가입_요청_response);
     }
 }

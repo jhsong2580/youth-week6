@@ -16,4 +16,9 @@ public class MemberAcceptanceTestAssertionUtils {
         );
     }
 
+    public static void 회원가입_중복지원_에러발생(ExtractableResponse<Response> 회원가입_요청_response) {
+        assertAll(
+            () -> assertThat(회원가입_요청_response.statusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value())
+        );
+    }
 }

@@ -1,6 +1,8 @@
 package youth.week6.member.member.service;
 
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import youth.week6.member.member.dto.MemberDto;
@@ -18,23 +20,43 @@ public class MemberService {
 
     @Transactional
     public MemberDto joinParticipants(MemberJoinDto memberJoinDto, long participantId) {
-        Members members = Members.from(memberJoinDto);
+        checkJoinMemberRequestDuplicateIdentification(memberJoinDto.getIdentification());
 
+        Members members = saveMembersByMemberJoinDto(memberJoinDto);
         members.mappingParticipantsInfo(participantId);
-
-        membersRepository.save(members);
 
         return dtoMapper.to(members);
     }
 
+
+
     @Transactional
     public MemberDto joinOrganizers(MemberJoinDto memberJoinDto, long organizersId) {
-        Members members = Members.from(memberJoinDto);
+        checkJoinMemberRequestDuplicateIdentification(memberJoinDto.getIdentification());
 
+        Members members = saveMembersByMemberJoinDto(memberJoinDto);
         members.mappingOrganizerInfo(organizersId);
 
-        membersRepository.save(members);
-
         return dtoMapper.to(members);
+    }
+
+    private void checkJoinMemberRequestDuplicateIdentification(String identification) {
+        Optional<Members> members = membersRepository.findByAuthenticationInfo_Identification(
+            identification);
+
+        if (members.isPresent()) {
+            throw new IllegalArgumentException("duplicated identification join request");
+        }
+    }
+
+    private Members saveMembersByMemberJoinDto(MemberJoinDto memberJoinDto) {
+        Members members = Members.from(memberJoinDto);
+
+        try{
+            membersRepository.save(members);
+        }catch(DataIntegrityViolationException e){
+            throw new IllegalArgumentException("duplicated identification join request");
+        }
+        return members;
     }
 }
