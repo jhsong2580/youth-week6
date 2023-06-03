@@ -21,7 +21,6 @@ import youth.week6.member.mapper.ParticipantJoinRequestDtoToJoinDtoMapper;
 import youth.week6.member.member.dto.MemberJoinDto;
 import youth.week6.member.organizer.dto.OrganizerJoinDto;
 import youth.week6.member.participant.dto.ParticipantJoinDto;
-import youth.week6.member.participant.service.ParticipantService;
 import youth.week6.member.service.MemberFacadeService;
 
 @RestController
@@ -33,8 +32,6 @@ public class MemberController {
     private final MemberJoinRequestDtoToJoinDtoMapper memberJoinDtoMapper;
     private final OrganizerJoinRequestDtoToJoinDtoMapper organizerJoinDtoMapper;
     private final ParticipantJoinRequestDtoToJoinDtoMapper participantJoinDtoMapper;
-
-    private final ParticipantService participantService;
 
     @PostMapping("/participants")
     public ResponseEntity<?> join(
