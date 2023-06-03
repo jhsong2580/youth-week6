@@ -8,3 +8,7 @@
   - member -> member
   - organizer -> organizer
   - participant -> participants, participants_allergens, allergens
+
+---
+### member_join
+- 사용자 기본 정보와 주최자/참여자 정보를 받아 가입을 한다.

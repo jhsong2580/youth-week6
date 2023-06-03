@@ -1,0 +1,35 @@
+POST {{host}}/members/participants
+Content-Type: application/json
+
+{
+  "member" : {
+    "name" : "sjh",
+    "birth_date" : "1991-07-30",
+    "sex" : "MAIL",
+    "identification" : "jhsong2580124",
+    "password" : "New1234!!",
+    "email" : "thdwmdgns@naver.com"
+  },
+  "participant" : {
+    "description" : "description",
+    "allergens" : [41, 42, 43, 44]
+  }
+}
+
+###
+POST {{host}}/members/organizers
+Content-Type: application/json
+
+{
+  "member" : {
+    "name" : "sjh",
+    "birth_date" : "1991-07-30",
+    "sex" : "MAIL",
+    "identification" : "jhsong2580123",
+    "password" : "New1234!!",
+    "email" : "thdwmdgns@naver.com"
+  },
+  "organizer" : {
+    "belong" : "kt"
+  }
+}

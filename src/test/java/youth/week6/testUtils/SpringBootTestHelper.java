@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
-import youth.week6.participant.entity.Allergens;
-import youth.week6.participant.repository.AllergensRepository;
+import youth.week6.member.participant.entity.Allergens;
+import youth.week6.member.participant.repository.AllergensRepository;
+import youth.week6.testFixture.AllergensFixture;
 
 @ActiveProfiles(profiles = "test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

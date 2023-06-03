@@ -40,16 +40,23 @@
      - 비밀번호를 제외한 사용자 정보
      - 참석자 정보 (Optional)
      - 주최자 정보 (Optional)
-2. /members 
-   - Description : 회원 가입 
+2. /members/organizer
+   - Description : 회원 가입 (주최자)
    - Method : POST
-   - Header : jwt token
    - Request 
-     - MemberJoinRequestDto
+     - OrganizerMemberJoinRequestDto
        - 회원가입에 필요한 정보 
-       - 주최자 or 참석자 에 필요한 정보
+       - 주최자에 필요한 정보
    - Response : 201(Created)
-3. /members
+3. /members/participants
+    - Description : 회원 가입 (참석자)
+    - Method : POST
+    - Request
+        - ParticipantsMemberJoinRequestDto
+            - 회원가입에 필요한 정보
+            - 참석자에 필요한 정보
+    - Response : 201(Created) 
+4. /members
    - Description : 회원정보 업데이트, 주최자 / 참석자 권한 추가는 불가능
    - Method : PATCH
    - Header : jwt token
@@ -57,16 +64,16 @@
      - MemberUpdateRequestDto
        - 회원수정에 필요한 정보 
        - 주최자 or 참석자 정보 수정에 필요한 정보
-4. /members/organizer
+5. /members/organizer
    - Description : 참여자 회원의 주최자 권한 추가 
-   - Method : POST
+   - Method : PATCH
    - Header : jwt token 
    - Request
      - OrganizerJoinRequestDto
        - 주최자에 필요한 정보 
-5. /members/participants
+6. /members/participants
    - Description : 주최자 회원의 참여자 권한 추가 
-   - Method : Post
+   - Method : PATCH
    - Header : jwt token 
    - Request
      - ParticipantsJoinRequestDto
