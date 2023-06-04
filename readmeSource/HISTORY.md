@@ -26,3 +26,11 @@
     - PARTICIPANT : 참여자 권한. 참여자 등록이 된 사용자는 권한을 가지게 된다 
     - ORGANIZER : 주최자 권한. 주최자 등록이 된 사용자는 권한을 가지게 된다
   - Role은 GrantedAuthorityDefaults 에 의해서, ROLE_ 라는 prefix를 가지고 토큰에 저장된다
+
+---
+### member_retrieve
+- 사용자 정보 조회 기능을 구현한다 
+  1. Authorization Header 내 Jwt Token을 통해 사용자 ID를 조회한다
+     - Argument Resolver를 통해 획득한다
+  2. 사용자 ID 기반 사용자 정보, 참여자 정보, 주최자 정보를 가져온다
+     - MemberFacadeService를 통해 접근하며, 순서대로 사용자 정보, 참여자 정보, 주최자 정보를 가져온다. 
