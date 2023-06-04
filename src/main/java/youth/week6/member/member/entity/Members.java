@@ -55,17 +55,21 @@ public class Members {
 
     public void mappingParticipantsInfo(long participantsId) {
         this.participantsId = participantsId;
+        this.authenticationInfo.addRole(MemberRoles.PARTICIPANT);
     }
 
     public void mappingOrganizerInfo(long organizerId) {
         this.organizerId = organizerId;
+        this.authenticationInfo.addRole(MemberRoles.ORGANIZER);
     }
 
     public void unMappingParticipantsInfo() {
         this.participantsId = null;
+        this.authenticationInfo.removeRole(MemberRoles.PARTICIPANT);
     }
 
     public void unMappingOrganizerInfo() {
         this.organizerId = null;
+        this.authenticationInfo.removeRole(MemberRoles.ORGANIZER);
     }
 }
