@@ -12,15 +12,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import youth.week6.member.dto.request.LoginRequestDto;
 import youth.week6.member.dto.request.OrganizerMemberJoinRequestDto;
 import youth.week6.member.dto.request.ParticipantMemberJoinRequestDto;
 import youth.week6.member.dto.response.MemberJoinResponseDto;
+import youth.week6.member.jwt.dto.TokenInfo;
 import youth.week6.member.mapper.MemberJoinRequestDtoToJoinDtoMapper;
 import youth.week6.member.mapper.OrganizerJoinRequestDtoToJoinDtoMapper;
 import youth.week6.member.mapper.ParticipantJoinRequestDtoToJoinDtoMapper;
 import youth.week6.member.member.dto.MemberJoinDto;
 import youth.week6.member.organizer.dto.OrganizerJoinDto;
 import youth.week6.member.participant.dto.ParticipantJoinDto;
+import youth.week6.member.service.LoginFacadeService;
 import youth.week6.member.service.MemberFacadeService;
 
 @RestController
@@ -29,6 +32,7 @@ import youth.week6.member.service.MemberFacadeService;
 public class MemberController {
 
     private final MemberFacadeService memberFacadeService;
+    private final LoginFacadeService loginFacadeService;
     private final MemberJoinRequestDtoToJoinDtoMapper memberJoinDtoMapper;
     private final OrganizerJoinRequestDtoToJoinDtoMapper organizerJoinDtoMapper;
     private final ParticipantJoinRequestDtoToJoinDtoMapper participantJoinDtoMapper;
@@ -81,5 +85,25 @@ public class MemberController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new MemberJoinResponseDto(memberId));
 
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(
+        @Validated @RequestBody LoginRequestDto loginRequestDto,
+        BindingResult bindingResult
+    ) {
+
+        // TODO: 2023/06/01 bindingResult Error Handling
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            bindingResult.getAllErrors()
+                .forEach(c -> errors.put(((FieldError) c).getField(), c.getDefaultMessage()));
+            return ResponseEntity.badRequest().body(errors);
+        }
+
+        TokenInfo tokenInfo = loginFacadeService.login(loginRequestDto.getIdentification(),
+            loginRequestDto.getPassword());
+
+        return ResponseEntity.ok(tokenInfo.getAccessToken());
     }
 }
