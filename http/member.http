@@ -6,7 +6,7 @@ Content-Type: application/json
     "name" : "sjh",
     "birth_date" : "1991-07-30",
     "sex" : "MAIL",
-    "identification" : "jhsong2580124",
+    "identification" : "jhsong258012456",
     "password" : "New1234!!",
     "email" : "thdwmdgns@naver.com"
   },
@@ -33,3 +33,17 @@ Content-Type: application/json
     "belong" : "kt"
   }
 }
+
+###
+POST {{host}}/members/login
+Content-Type: application/json
+
+{
+  "identification" : "jhsong2580123",
+  "password" : "New1234!!"
+}
+
+###
+GET {{host}}/members/test
+Content-Type: application/json
+Authorization: Bearer {{token}}
