@@ -1,4 +1,4 @@
-package youth.week6.member.controller.dto.request;
+package youth.week6.member.controller.dto.request.join;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;

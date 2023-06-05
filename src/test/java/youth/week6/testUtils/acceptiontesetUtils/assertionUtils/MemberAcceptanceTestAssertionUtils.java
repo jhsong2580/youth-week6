@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.springframework.http.HttpStatus;
-import youth.week6.member.controller.dto.request.MemberJoinRequestDto;
-import youth.week6.member.controller.dto.request.OrganizerJoinRequestDto;
-import youth.week6.member.controller.dto.request.ParticipantJoinRequestDto;
+import youth.week6.member.controller.dto.request.join.MemberJoinRequestDto;
+import youth.week6.member.controller.dto.request.join.OrganizerJoinRequestDto;
+import youth.week6.member.controller.dto.request.join.ParticipantJoinRequestDto;
 import youth.week6.member.controller.dto.response.MemberDetailResponseDto.AllergenResponseDto;
 
 public class MemberAcceptanceTestAssertionUtils {

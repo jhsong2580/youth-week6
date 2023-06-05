@@ -2,7 +2,7 @@ package youth.week6.testFixture;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
-import youth.week6.member.controller.dto.request.ParticipantJoinRequestDto;
+import youth.week6.member.controller.dto.request.join.ParticipantJoinRequestDto;
 
 public enum ParticipantFixture {
     참여자정보_정상입력("자기소개");

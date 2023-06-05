@@ -7,11 +7,11 @@ import io.restassured.http.Header;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.springframework.http.MediaType;
-import youth.week6.member.controller.dto.request.LoginRequestDto;
-import youth.week6.member.controller.dto.request.OrganizerJoinRequestDto;
-import youth.week6.member.controller.dto.request.OrganizerMemberJoinRequestDto;
-import youth.week6.member.controller.dto.request.ParticipantJoinRequestDto;
-import youth.week6.member.controller.dto.request.ParticipantMemberJoinRequestDto;
+import youth.week6.member.controller.dto.request.login.LoginRequestDto;
+import youth.week6.member.controller.dto.request.join.OrganizerJoinRequestDto;
+import youth.week6.member.controller.dto.request.join.OrganizerMemberJoinRequestDto;
+import youth.week6.member.controller.dto.request.join.ParticipantJoinRequestDto;
+import youth.week6.member.controller.dto.request.join.ParticipantMemberJoinRequestDto;
 
 public class MemberAcceptanceTestSendUtils {
 

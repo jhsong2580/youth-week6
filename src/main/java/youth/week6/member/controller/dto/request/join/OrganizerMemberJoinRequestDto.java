@@ -1,4 +1,4 @@
-package youth.week6.member.controller.dto.request;
+package youth.week6.member.controller.dto.request.join;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -10,12 +10,11 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor // Constructor For Acceptance Test - MemberControllerTest
-public class ParticipantMemberJoinRequestDto {
-
+public class OrganizerMemberJoinRequestDto {
     @Valid
     @NotNull(message = "member info required")
     private MemberJoinRequestDto member;
     @Valid
-    @NotNull(message = "participant info required")
-    private ParticipantJoinRequestDto participant;
+    @NotNull(message = "organizer info required")
+    private OrganizerJoinRequestDto organizer;
 }

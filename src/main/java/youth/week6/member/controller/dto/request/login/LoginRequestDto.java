@@ -1,4 +1,4 @@
-package youth.week6.member.controller.dto.request;
+package youth.week6.member.controller.dto.request.login;
 
 import javax.validation.constraints.NotEmpty;
 import lombok.AccessLevel;
@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor // Constructor For Acceptance Test - MemberControllerTest
-public class OrganizerJoinRequestDto {
-
-    @NotEmpty(message = "organizer.belong is required")
-    private String belong; // 소속
-
+public class LoginRequestDto {
+    @NotEmpty
+    private String identification;
+    @NotEmpty
+    private String password;
 }

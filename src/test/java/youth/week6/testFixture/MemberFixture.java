@@ -1,6 +1,6 @@
 package youth.week6.testFixture;
 
-import youth.week6.member.controller.dto.request.MemberJoinRequestDto;
+import youth.week6.member.controller.dto.request.join.MemberJoinRequestDto;
 
 public enum MemberFixture {
     사용자정보_정상입력("name", "1991-07-30", "MAIL", "identification", "New1234!!", "thdwmdgns@naver.com", "자기소개");
