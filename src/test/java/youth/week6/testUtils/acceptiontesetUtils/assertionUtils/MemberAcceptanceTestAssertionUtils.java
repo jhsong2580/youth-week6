@@ -26,7 +26,7 @@ public class MemberAcceptanceTestAssertionUtils {
     public static void 회원가입_중복지원_에러발생(ExtractableResponse<Response> 회원가입_요청_response) {
         assertAll(
             () -> assertThat(회원가입_요청_response.statusCode()).isEqualTo(
-                HttpStatus.INTERNAL_SERVER_ERROR.value())
+                HttpStatus.BAD_REQUEST.value())
         );
     }
 
@@ -77,7 +77,7 @@ public class MemberAcceptanceTestAssertionUtils {
 
     public static void 참여자권한_추가불가(ExtractableResponse<Response> 참여자_권한_요청_response) {
         assertThat(참여자_권한_요청_response.statusCode()).isEqualTo(
-            HttpStatus.INTERNAL_SERVER_ERROR.value());
+            HttpStatus.BAD_REQUEST.value());
     }
 
     public static void 주최자권한_추가됨(ExtractableResponse<Response> 참여자_권한_요청_response) {
@@ -86,7 +86,7 @@ public class MemberAcceptanceTestAssertionUtils {
 
     public static void 주최자권한_추가불가(ExtractableResponse<Response> 참여자_권한_요청_response) {
         assertThat(참여자_권한_요청_response.statusCode()).isEqualTo(
-            HttpStatus.INTERNAL_SERVER_ERROR.value());
+            HttpStatus.BAD_REQUEST.value());
     }
 
     public static void 사용자정보_변경됨(ExtractableResponse<Response> 사용자_정보변경_요청_response) {

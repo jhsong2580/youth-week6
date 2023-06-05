@@ -2,11 +2,13 @@ package youth.week6.member.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -53,13 +55,13 @@ public class MemberController {
         @Validated @RequestBody ParticipantMemberJoinRequestDto participantMemberJoinRequestDto,
         BindingResult bindingResult
     ) {
-
-        // TODO: 2023/06/01 bindingResult Error Handling
         if (bindingResult.hasErrors()) {
-            Map<String, String> errors = new HashMap<>();
-            bindingResult.getAllErrors()
-                .forEach(c -> errors.put(((FieldError) c).getField(), c.getDefaultMessage()));
-            return ResponseEntity.badRequest().body(errors);
+            String errorMessage = bindingResult.getAllErrors()
+                .stream()
+                .map(ObjectError::getDefaultMessage)
+                .collect(Collectors.joining("\n"));
+
+            throw new IllegalArgumentException(errorMessage);
         }
 
         MemberJoinDto memberJoinDto = memberJoinDtoMapper.to(
@@ -79,12 +81,13 @@ public class MemberController {
         BindingResult bindingResult
     ) {
 
-        // TODO: 2023/06/01 bindingResult Error Handling
         if (bindingResult.hasErrors()) {
-            Map<String, String> errors = new HashMap<>();
-            bindingResult.getAllErrors()
-                .forEach(c -> errors.put(((FieldError) c).getField(), c.getDefaultMessage()));
-            return ResponseEntity.badRequest().body(errors);
+            String errorMessage = bindingResult.getAllErrors()
+                .stream()
+                .map(ObjectError::getDefaultMessage)
+                .collect(Collectors.joining("\n"));
+
+            throw new IllegalArgumentException(errorMessage);
         }
 
         MemberJoinDto memberJoinDto = memberJoinDtoMapper.to(
@@ -104,12 +107,13 @@ public class MemberController {
         BindingResult bindingResult
     ) {
 
-        // TODO: 2023/06/01 bindingResult Error Handling
         if (bindingResult.hasErrors()) {
-            Map<String, String> errors = new HashMap<>();
-            bindingResult.getAllErrors()
-                .forEach(c -> errors.put(((FieldError) c).getField(), c.getDefaultMessage()));
-            return ResponseEntity.badRequest().body(errors);
+            String errorMessage = bindingResult.getAllErrors()
+                .stream()
+                .map(ObjectError::getDefaultMessage)
+                .collect(Collectors.joining("\n"));
+
+            throw new IllegalArgumentException(errorMessage);
         }
 
         TokenInfo tokenInfo = loginFacadeService.login(loginRequestDto.getIdentification(),
@@ -138,12 +142,13 @@ public class MemberController {
         @MemberId Long memberId
     ) {
 
-        // TODO: 2023/06/01 bindingResult Error Handling
         if (bindingResult.hasErrors()) {
-            Map<String, String> errors = new HashMap<>();
-            bindingResult.getAllErrors()
-                .forEach(c -> errors.put(((FieldError) c).getField(), c.getDefaultMessage()));
-            return ResponseEntity.badRequest().body(errors);
+            String errorMessage = bindingResult.getAllErrors()
+                .stream()
+                .map(ObjectError::getDefaultMessage)
+                .collect(Collectors.joining("\n"));
+
+            throw new IllegalArgumentException(errorMessage);
         }
 
         ParticipantJoinDto participantJoinDto = memberJoinDtoMapper.to(participantJoinRequestDto);
@@ -160,12 +165,13 @@ public class MemberController {
         @MemberId Long memberId
     ) {
 
-        // TODO: 2023/06/01 bindingResult Error Handling
         if (bindingResult.hasErrors()) {
-            Map<String, String> errors = new HashMap<>();
-            bindingResult.getAllErrors()
-                .forEach(c -> errors.put(((FieldError) c).getField(), c.getDefaultMessage()));
-            return ResponseEntity.badRequest().body(errors);
+            String errorMessage = bindingResult.getAllErrors()
+                .stream()
+                .map(ObjectError::getDefaultMessage)
+                .collect(Collectors.joining("\n"));
+
+            throw new IllegalArgumentException(errorMessage);
         }
 
         OrganizerJoinDto organizerJoinDto = memberJoinDtoMapper.to(organizerJoinRequestDto);
@@ -181,17 +187,22 @@ public class MemberController {
         BindingResult bindingResult,
         @MemberId Long memberId
     ) {
-        // TODO: 2023/06/01 bindingResult Error Handling
+
         if (bindingResult.hasErrors()) {
-            Map<String, String> errors = new HashMap<>();
-            bindingResult.getAllErrors()
-                .forEach(c -> errors.put(((FieldError) c).getField(), c.getDefaultMessage()));
-            return ResponseEntity.badRequest().body(errors);
+            String errorMessage = bindingResult.getAllErrors()
+                .stream()
+                .map(ObjectError::getDefaultMessage)
+                .collect(Collectors.joining("\n"));
+
+            throw new IllegalArgumentException(errorMessage);
         }
 
-        MemberUpdateDto memberUpdateDto = updateDtoMapper.to(memberDetailUpdateRequestDto.getMember());
-        OrganizerUpdateDto organizerUpdateDto = updateDtoMapper.to(memberDetailUpdateRequestDto.getOrganizer());
-        ParticipantUpdateDto participantUpdateDto = updateDtoMapper.to(memberDetailUpdateRequestDto.getParticipant());
+        MemberUpdateDto memberUpdateDto = updateDtoMapper.to(
+            memberDetailUpdateRequestDto.getMember());
+        OrganizerUpdateDto organizerUpdateDto = updateDtoMapper.to(
+            memberDetailUpdateRequestDto.getOrganizer());
+        ParticipantUpdateDto participantUpdateDto = updateDtoMapper.to(
+            memberDetailUpdateRequestDto.getParticipant());
 
         memberFacadeService.update(memberId, memberUpdateDto, organizerUpdateDto,
             participantUpdateDto);
