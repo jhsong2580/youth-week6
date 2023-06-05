@@ -49,4 +49,10 @@ public class MemberFacadeService {
 
         return new MemberDetailDto(memberDto, participantDto, organizerDto);
     }
+
+    @Transactional
+    public void joinParticipant(Long memberId, ParticipantJoinDto participantJoinDto) {
+        ParticipantDto participantDto = participantService.join(participantJoinDto);
+        memberService.mapParticipantInfo(memberId, participantDto.getId());
+    }
 }

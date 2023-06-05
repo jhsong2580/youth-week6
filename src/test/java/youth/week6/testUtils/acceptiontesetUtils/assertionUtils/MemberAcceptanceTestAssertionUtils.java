@@ -54,4 +54,12 @@ public class MemberAcceptanceTestAssertionUtils {
                 .containsExactlyInAnyOrderElementsOf(참여자_정보.getAllergens())
         );
     }
+
+    public static void 참여자권한_추가됨(ExtractableResponse<Response> 참여자_권한_요청_response) {
+        assertThat(참여자_권한_요청_response.statusCode()).isEqualTo(HttpStatus.OK.value());
+    }
+
+    public static void 참여자권한_추가불가(ExtractableResponse<Response> 참여자_권한_요청_response) {
+        assertThat(참여자_권한_요청_response.statusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
+    }
 }

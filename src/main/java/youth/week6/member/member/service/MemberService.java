@@ -70,4 +70,15 @@ public class MemberService {
 
         return dtoMapper.to(members);
     }
+
+    @Transactional
+    public void mapParticipantInfo(long memberId, long participantId) {
+        Members members = membersRepository.findById(memberId)
+            .orElseThrow(
+                () -> new IllegalArgumentException(
+                    "there is no member info with " + memberId)
+            );
+
+        members.mappingParticipantsInfo(participantId);
+    }
 }
