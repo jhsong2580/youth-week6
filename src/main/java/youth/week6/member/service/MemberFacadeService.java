@@ -4,13 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import youth.week6.member.member.dto.MemberDto;
-import youth.week6.member.member.dto.MemberJoinDto;
+import youth.week6.member.dto.MemberJoinDto;
 import youth.week6.member.member.service.MemberService;
 import youth.week6.member.organizer.dto.OrganizerDto;
-import youth.week6.member.organizer.dto.OrganizerJoinDto;
+import youth.week6.member.dto.OrganizerJoinDto;
 import youth.week6.member.organizer.service.OrganizerService;
 import youth.week6.member.participant.dto.ParticipantDto;
-import youth.week6.member.participant.dto.ParticipantJoinDto;
+import youth.week6.member.dto.ParticipantJoinDto;
 import youth.week6.member.participant.service.ParticipantService;
 import youth.week6.member.service.dto.MemberDetailDto;
 

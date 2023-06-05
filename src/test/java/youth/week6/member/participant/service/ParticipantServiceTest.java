@@ -12,7 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import youth.week6.member.participant.dto.ParticipantDto;
-import youth.week6.member.participant.dto.ParticipantJoinDto;
+import youth.week6.member.dto.ParticipantJoinDto;
 import youth.week6.member.participant.entity.Allergens;
 import youth.week6.testFixture.AllergensFixture;
 import youth.week6.testUtils.SpringBootTestHelper;

@@ -1,4 +1,4 @@
-package youth.week6.member.dto.response;
+package youth.week6.member.controller.dto.response;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

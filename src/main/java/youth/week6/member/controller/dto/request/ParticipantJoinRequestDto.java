@@ -1,4 +1,4 @@
-package youth.week6.member.dto.request;
+package youth.week6.member.controller.dto.request;
 
 import java.util.List;
 import lombok.AccessLevel;

@@ -14,7 +14,7 @@ import org.mapstruct.factory.Mappers;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import youth.week6.member.member.dto.MemberDto;
-import youth.week6.member.member.dto.MemberJoinDto;
+import youth.week6.member.dto.MemberJoinDto;
 import youth.week6.member.member.entity.Sex;
 import youth.week6.member.member.mapper.MemberToMemberDtoMapper;
 import youth.week6.member.member.repository.MembersRepository;

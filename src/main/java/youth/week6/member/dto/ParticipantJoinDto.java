@@ -1,4 +1,4 @@
-package youth.week6.member.participant.dto;
+package youth.week6.member.dto;
 
 import java.util.List;
 import lombok.AllArgsConstructor;

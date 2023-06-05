@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import youth.week6.member.member.dto.MemberJoinDto;
+import youth.week6.member.dto.MemberJoinDto;
 import youth.week6.member.member.entity.embeded.AuthenticationInfo;
 import youth.week6.member.member.entity.embeded.MemberInfo;
 

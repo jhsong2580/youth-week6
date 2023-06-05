@@ -9,7 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import youth.week6.member.organizer.dto.OrganizerDto;
-import youth.week6.member.organizer.dto.OrganizerJoinDto;
+import youth.week6.member.dto.OrganizerJoinDto;
 import youth.week6.member.organizer.repository.OrganizersRepository;
 
 @ExtendWith(MockitoExtension.class)
