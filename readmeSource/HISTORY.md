@@ -46,3 +46,11 @@
   2. Authorization Header 내 Jwt Token을 통해 사용자 ID를 조회한다
      - Argument Resolver를 통해 획득한다
   3. 참여자 권한에 필요한 추가정보를 받아 참여자 정보와 Role을 추가한다. 
+
+### member_update
+- 사용자 정보 수정 기능을 구현한다. 
+  1. 수정 정보를 아래와 같이 받는다. 
+     - member(필수)
+     - organizer(사용자가 주최자 권한을 갖고있다면 필수)
+     - participant(사용자가 참여자 권한을 갖고있다면 필수)
+  2. 요청값을 통해 각 정보(member, organizer, participant)를 수정한다. 
