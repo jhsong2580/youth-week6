@@ -88,4 +88,9 @@ public class MemberAcceptanceTestAssertionUtils {
         assertThat(참여자_권한_요청_response.statusCode()).isEqualTo(
             HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
+
+    public static void 사용자정보_변경됨(ExtractableResponse<Response> 사용자_정보변경_요청_response) {
+        assertThat(사용자_정보변경_요청_response.statusCode()).isEqualTo(
+            HttpStatus.OK.value());
+    }
 }
