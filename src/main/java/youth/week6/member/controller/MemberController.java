@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import youth.week6.argumentResolver.MemberId;
 import youth.week6.member.dto.request.LoginRequestDto;
+import youth.week6.member.dto.request.OrganizerJoinRequestDto;
 import youth.week6.member.dto.request.OrganizerMemberJoinRequestDto;
 import youth.week6.member.dto.request.ParticipantJoinRequestDto;
 import youth.week6.member.dto.request.ParticipantMemberJoinRequestDto;
@@ -128,7 +129,7 @@ public class MemberController {
     }
 
     @PatchMapping("/participants")
-    public ResponseEntity<?> login(
+    public ResponseEntity<?> addRole(
         @Validated @RequestBody ParticipantJoinRequestDto participantJoinRequestDto,
         BindingResult bindingResult,
         @MemberId Long memberId
@@ -145,6 +146,28 @@ public class MemberController {
         ParticipantJoinDto participantJoinDto = participantJoinDtoMapper.to(participantJoinRequestDto);
 
         memberFacadeService.joinParticipant(memberId, participantJoinDto);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/organizers")
+    public ResponseEntity<?> addRole(
+        @Validated @RequestBody OrganizerJoinRequestDto organizerJoinRequestDto,
+        BindingResult bindingResult,
+        @MemberId Long memberId
+    ) {
+
+        // TODO: 2023/06/01 bindingResult Error Handling
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            bindingResult.getAllErrors()
+                .forEach(c -> errors.put(((FieldError) c).getField(), c.getDefaultMessage()));
+            return ResponseEntity.badRequest().body(errors);
+        }
+
+        OrganizerJoinDto organizerJoinDto = organizerJoinDtoMapper.to(organizerJoinRequestDto);
+
+        memberFacadeService.joinOrganizer(memberId, organizerJoinDto);
 
         return ResponseEntity.ok().build();
     }

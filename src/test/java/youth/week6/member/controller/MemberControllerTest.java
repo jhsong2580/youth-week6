@@ -6,6 +6,8 @@ import static youth.week6.testFixture.AllergensFixture.MILK;
 import static youth.week6.testFixture.MemberFixture.사용자정보_정상입력;
 import static youth.week6.testFixture.OrganizerFixture.주최자정보_정상입력;
 import static youth.week6.testFixture.ParticipantFixture.참여자정보_정상입력;
+import static youth.week6.testUtils.acceptiontesetUtils.assertionUtils.MemberAcceptanceTestAssertionUtils.주최자권한_추가됨;
+import static youth.week6.testUtils.acceptiontesetUtils.assertionUtils.MemberAcceptanceTestAssertionUtils.주최자권한_추가불가;
 import static youth.week6.testUtils.acceptiontesetUtils.assertionUtils.MemberAcceptanceTestAssertionUtils.주최자정보_확인됨;
 import static youth.week6.testUtils.acceptiontesetUtils.assertionUtils.MemberAcceptanceTestAssertionUtils.참여자_회원가입_확인됨;
 import static youth.week6.testUtils.acceptiontesetUtils.assertionUtils.MemberAcceptanceTestAssertionUtils.참여자권한_추가됨;
@@ -14,6 +16,7 @@ import static youth.week6.testUtils.acceptiontesetUtils.assertionUtils.MemberAcc
 import static youth.week6.testUtils.acceptiontesetUtils.assertionUtils.MemberAcceptanceTestAssertionUtils.회원가입_중복지원_에러발생;
 import static youth.week6.testUtils.acceptiontesetUtils.assertionUtils.MemberAcceptanceTestAssertionUtils.회원정보_확인됨;
 import static youth.week6.testUtils.acceptiontesetUtils.sendUtils.MemberAcceptanceTestSendUtils.로그인을통한_JWT토큰획득;
+import static youth.week6.testUtils.acceptiontesetUtils.sendUtils.MemberAcceptanceTestSendUtils.주최자_권한_요청;
 import static youth.week6.testUtils.acceptiontesetUtils.sendUtils.MemberAcceptanceTestSendUtils.주최자_회원가입_요청;
 import static youth.week6.testUtils.acceptiontesetUtils.sendUtils.MemberAcceptanceTestSendUtils.참여자_권한_요청;
 import static youth.week6.testUtils.acceptiontesetUtils.sendUtils.MemberAcceptanceTestSendUtils.참여자_회원가입_요청;
@@ -155,6 +158,30 @@ class MemberControllerTest extends SpringBootTestHelper {
 
         //then
         참여자권한_추가불가(참여자_권한_요청_response);
+    }
+
+    @Test
+    public void 주최자권한_신청 (){
+        //given
+        String JWT토큰 = 참여자_회원가입_JWT_토큰받기();
+
+        //when
+        ExtractableResponse<Response> 주최자_권한_요청_response = 주최자_권한_요청(JWT토큰, 주최자_정보);
+
+        //then
+        주최자권한_추가됨(주최자_권한_요청_response);
+    }
+
+    @Test
+    public void 주최자권한_중복신청불가 (){
+        //given
+        String JWT토큰 = 주최자_회원가입_JWT_토큰받기();
+
+        //when
+        ExtractableResponse<Response> 주최자_권한_요청_response = 주최자_권한_요청(JWT토큰, 주최자_정보);
+
+        //then
+        주최자권한_추가불가(주최자_권한_요청_response);
     }
 
     private String 주최자_회원가입_JWT_토큰받기() {

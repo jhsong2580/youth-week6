@@ -81,4 +81,15 @@ public class MemberService {
 
         members.mappingParticipantsInfo(participantId);
     }
+
+    @Transactional
+    public void mapOrganizerInfo(long memberId, long organizerId) {
+        Members members = membersRepository.findById(memberId)
+            .orElseThrow(
+                () -> new IllegalArgumentException(
+                    "there is no member info with " + memberId)
+            );
+
+        members.mappingOrganizerInfo(organizerId);
+    }
 }

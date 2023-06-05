@@ -55,4 +55,10 @@ public class MemberFacadeService {
         ParticipantDto participantDto = participantService.join(participantJoinDto);
         memberService.mapParticipantInfo(memberId, participantDto.getId());
     }
+
+    @Transactional
+    public void joinOrganizer(Long memberId, OrganizerJoinDto organizerJoinDto) {
+        OrganizerDto organizerDto = organizerService.join(organizerJoinDto);
+        memberService.mapOrganizerInfo(memberId, organizerDto.getId());
+    }
 }
