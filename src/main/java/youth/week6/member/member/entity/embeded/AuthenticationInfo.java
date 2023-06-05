@@ -39,6 +39,10 @@ public class AuthenticationInfo {
         roles.remove(memberRoles);
     }
 
+    public boolean hasRole(MemberRoles memberRoles) {
+        return roles.contains(memberRoles);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
