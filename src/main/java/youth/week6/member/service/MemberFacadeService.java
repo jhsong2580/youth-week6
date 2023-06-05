@@ -3,6 +3,9 @@ package youth.week6.member.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import youth.week6.member.dto.MemberUpdateDto;
+import youth.week6.member.dto.OrganizerUpdateDto;
+import youth.week6.member.dto.ParticipantUpdateDto;
 import youth.week6.member.member.dto.MemberDto;
 import youth.week6.member.dto.MemberJoinDto;
 import youth.week6.member.member.service.MemberService;
@@ -41,11 +44,15 @@ public class MemberFacadeService {
     @Transactional(readOnly = true)
     public MemberDetailDto get(long memberId) {
         MemberDto memberDto = memberService.get(memberId);
+
         ParticipantDto participantDto =
-            memberDto.getParticipantsId() != null ? participantService.get(
-                memberDto.getParticipantsId()) : null;
-        OrganizerDto organizerDto = memberDto.getOrganizerId() != null ? organizerService.get(
-            memberDto.getOrganizerId()) : null;
+            memberDto.getParticipantsId() != null ?
+                participantService.get(memberDto.getParticipantsId())
+                : null;
+
+        OrganizerDto organizerDto = memberDto.getOrganizerId() != null ?
+            organizerService.get(memberDto.getOrganizerId())
+            : null;
 
         return new MemberDetailDto(memberDto, participantDto, organizerDto);
     }
@@ -60,5 +67,20 @@ public class MemberFacadeService {
     public void joinOrganizer(Long memberId, OrganizerJoinDto organizerJoinDto) {
         OrganizerDto organizerDto = organizerService.join(organizerJoinDto);
         memberService.mapOrganizerInfo(memberId, organizerDto.getId());
+    }
+
+    @Transactional
+    public void update(Long memberId, MemberUpdateDto memberUpdateDto,
+        OrganizerUpdateDto organizerUpdateDto, ParticipantUpdateDto participantUpdateDto) {
+        MemberDto memberDto = memberService.get(memberId);
+        memberService.update(memberId, memberUpdateDto);
+
+        if(memberDto.getParticipantsId() != null) {
+            participantService.update(memberDto.getParticipantsId(), participantUpdateDto);
+        }
+
+        if(memberDto.getOrganizerId() != null) {
+            organizerService.update(memberDto.getOrganizerId(), organizerUpdateDto);
+        }
     }
 }

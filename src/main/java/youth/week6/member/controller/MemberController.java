@@ -25,9 +25,13 @@ import youth.week6.member.controller.dto.response.MemberDetailResponseDto;
 import youth.week6.member.controller.dto.response.MemberJoinResponseDto;
 import youth.week6.member.controller.mapper.DtosToMemberDetailResponseDtoMapper;
 import youth.week6.member.controller.mapper.JoinDtoMapper;
+import youth.week6.member.controller.mapper.UpdateDtoMapper;
 import youth.week6.member.dto.MemberJoinDto;
+import youth.week6.member.dto.MemberUpdateDto;
 import youth.week6.member.dto.OrganizerJoinDto;
+import youth.week6.member.dto.OrganizerUpdateDto;
 import youth.week6.member.dto.ParticipantJoinDto;
+import youth.week6.member.dto.ParticipantUpdateDto;
 import youth.week6.member.jwt.dto.TokenInfo;
 import youth.week6.member.service.LoginFacadeService;
 import youth.week6.member.service.MemberFacadeService;
@@ -41,6 +45,7 @@ public class MemberController {
     private final MemberFacadeService memberFacadeService;
     private final LoginFacadeService loginFacadeService;
     private final JoinDtoMapper memberJoinDtoMapper;
+    private final UpdateDtoMapper updateDtoMapper;
     private final DtosToMemberDetailResponseDtoMapper detailResponseDtoMapper;
 
     @PostMapping("/participants")
@@ -166,6 +171,30 @@ public class MemberController {
         OrganizerJoinDto organizerJoinDto = memberJoinDtoMapper.to(organizerJoinRequestDto);
 
         memberFacadeService.joinOrganizer(memberId, organizerJoinDto);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping
+    public ResponseEntity<?> update(
+        @Validated @RequestBody MemberDetailUpdateRequestDto memberDetailUpdateRequestDto,
+        BindingResult bindingResult,
+        @MemberId Long memberId
+    ) {
+        // TODO: 2023/06/01 bindingResult Error Handling
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            bindingResult.getAllErrors()
+                .forEach(c -> errors.put(((FieldError) c).getField(), c.getDefaultMessage()));
+            return ResponseEntity.badRequest().body(errors);
+        }
+
+        MemberUpdateDto memberUpdateDto = updateDtoMapper.to(memberDetailUpdateRequestDto.getMember());
+        OrganizerUpdateDto organizerUpdateDto = updateDtoMapper.to(memberDetailUpdateRequestDto.getOrganizer());
+        ParticipantUpdateDto participantUpdateDto = updateDtoMapper.to(memberDetailUpdateRequestDto.getParticipant());
+
+        memberFacadeService.update(memberId, memberUpdateDto, organizerUpdateDto,
+            participantUpdateDto);
 
         return ResponseEntity.ok().build();
     }
