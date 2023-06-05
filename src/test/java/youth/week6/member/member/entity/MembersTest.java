@@ -2,12 +2,16 @@ package youth.week6.member.member.entity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import youth.week6.member.dto.MemberJoinDto;
+import youth.week6.member.dto.MemberUpdateDto;
+import youth.week6.member.member.entity.embeded.AuthenticationInfo;
+import youth.week6.member.member.entity.embeded.MemberInfo;
 
 class MembersTest {
 
@@ -109,7 +113,7 @@ class MembersTest {
 
     @Test
     @DisplayName("참여자 정보를 중복 등록하면 에러가 발생한다")
-    public void test6 (){
+    public void test6() {
         //given
         Members members = Members.from(memberJoinDto);
         members.mappingParticipantsInfo(1L);
@@ -122,7 +126,7 @@ class MembersTest {
 
     @Test
     @DisplayName("주최자 정보를 중복 등록하면 에러가 발생한다")
-    public void test7 (){
+    public void test7() {
         //given
         Members members = Members.from(memberJoinDto);
         members.mappingOrganizerInfo(1L);
@@ -131,5 +135,39 @@ class MembersTest {
         assertThatThrownBy(
             () -> members.mappingOrganizerInfo(2L)
         ).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("사용자 정보를 업데이트 할수 있다")
+    public void test8() {
+        //given
+        Members members = Members.from(memberJoinDto);
+        members.mappingOrganizerInfo(1L);
+
+        MemberUpdateDto memberUpdateDto = new MemberUpdateDto(
+            "modifiedName", LocalDateTime.of(1991, 07, 31, 0, 0),
+            Sex.FEMALE, "modifiedIdentification", "modifiedPassword", "modifiedEmail"
+        );
+
+        //when
+        members.update(memberUpdateDto);
+
+        //then
+        assertAll(
+            () -> assertThat(members.getAuthenticationInfo())
+                .isEqualTo(new AuthenticationInfo(memberUpdateDto.getIdentification(),
+                    memberUpdateDto.getPassword())),
+            () -> assertThat(members.getAuthenticationInfo().getRoles())
+                .containsExactlyInAnyOrderElementsOf(
+                    Arrays.asList(MemberRoles.ORGANIZER, MemberRoles.USER)),
+            () -> assertThat(members.getMemberInfo()).isEqualTo(
+                new MemberInfo(
+                    memberUpdateDto.getName(),
+                    memberUpdateDto.getBirthDate(),
+                    memberUpdateDto.getSex(),
+                    memberUpdateDto.getEmail()
+                )
+            )
+        );
     }
 }

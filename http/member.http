@@ -58,3 +58,26 @@ Authorization: Bearer {{token}}
 "description" : "description",
 "allergens" : [41, 42, 43, 44]
 }
+
+###
+PATCH {{host}}/members
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "member" : {
+    "name" : "sjh1",
+    "birth_date" : "1991-07-31",
+    "sex" : "MAIL",
+    "identification" : "jhsong2580123",
+    "password" : "New1234!!!",
+    "email" : "thdwmdgns@naver.com"
+  },
+  "organizer" : {
+    "belong" : "ktCloud"
+  },
+  "participant" : {
+    "description" : "description1",
+    "allergens" : [42,43,52]
+  }
+}

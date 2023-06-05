@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.springframework.http.HttpStatus;
-import youth.week6.member.controller.dto.request.MemberJoinRequestDto;
-import youth.week6.member.controller.dto.request.OrganizerJoinRequestDto;
-import youth.week6.member.controller.dto.request.ParticipantJoinRequestDto;
+import youth.week6.member.controller.dto.request.join.MemberJoinRequestDto;
+import youth.week6.member.controller.dto.request.join.OrganizerJoinRequestDto;
+import youth.week6.member.controller.dto.request.join.ParticipantJoinRequestDto;
 import youth.week6.member.controller.dto.response.MemberDetailResponseDto.AllergenResponseDto;
 
 public class MemberAcceptanceTestAssertionUtils {
@@ -87,5 +87,10 @@ public class MemberAcceptanceTestAssertionUtils {
     public static void 주최자권한_추가불가(ExtractableResponse<Response> 참여자_권한_요청_response) {
         assertThat(참여자_권한_요청_response.statusCode()).isEqualTo(
             HttpStatus.INTERNAL_SERVER_ERROR.value());
+    }
+
+    public static void 사용자정보_변경됨(ExtractableResponse<Response> 사용자_정보변경_요청_response) {
+        assertThat(사용자_정보변경_요청_response.statusCode()).isEqualTo(
+            HttpStatus.OK.value());
     }
 }

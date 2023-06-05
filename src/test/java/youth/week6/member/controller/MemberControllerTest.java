@@ -4,8 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static youth.week6.testFixture.AllergensFixture.BEEF;
 import static youth.week6.testFixture.AllergensFixture.MILK;
 import static youth.week6.testFixture.MemberFixture.사용자정보_정상입력;
+import static youth.week6.testFixture.MemberFixture.사용자정보_정상입력_1;
 import static youth.week6.testFixture.OrganizerFixture.주최자정보_정상입력;
+import static youth.week6.testFixture.OrganizerFixture.주최자정보_정상입력_1;
 import static youth.week6.testFixture.ParticipantFixture.참여자정보_정상입력;
+import static youth.week6.testUtils.acceptiontesetUtils.assertionUtils.MemberAcceptanceTestAssertionUtils.사용자정보_변경됨;
 import static youth.week6.testUtils.acceptiontesetUtils.assertionUtils.MemberAcceptanceTestAssertionUtils.주최자권한_추가됨;
 import static youth.week6.testUtils.acceptiontesetUtils.assertionUtils.MemberAcceptanceTestAssertionUtils.주최자권한_추가불가;
 import static youth.week6.testUtils.acceptiontesetUtils.assertionUtils.MemberAcceptanceTestAssertionUtils.주최자정보_확인됨;
@@ -16,6 +19,7 @@ import static youth.week6.testUtils.acceptiontesetUtils.assertionUtils.MemberAcc
 import static youth.week6.testUtils.acceptiontesetUtils.assertionUtils.MemberAcceptanceTestAssertionUtils.회원가입_중복지원_에러발생;
 import static youth.week6.testUtils.acceptiontesetUtils.assertionUtils.MemberAcceptanceTestAssertionUtils.회원정보_확인됨;
 import static youth.week6.testUtils.acceptiontesetUtils.sendUtils.MemberAcceptanceTestSendUtils.로그인을통한_JWT토큰획득;
+import static youth.week6.testUtils.acceptiontesetUtils.sendUtils.MemberAcceptanceTestSendUtils.사용자_정보변경_요청;
 import static youth.week6.testUtils.acceptiontesetUtils.sendUtils.MemberAcceptanceTestSendUtils.주최자_권한_요청;
 import static youth.week6.testUtils.acceptiontesetUtils.sendUtils.MemberAcceptanceTestSendUtils.주최자_회원가입_요청;
 import static youth.week6.testUtils.acceptiontesetUtils.sendUtils.MemberAcceptanceTestSendUtils.참여자_권한_요청;
@@ -27,12 +31,13 @@ import io.restassured.response.Response;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import youth.week6.member.controller.dto.request.LoginRequestDto;
-import youth.week6.member.controller.dto.request.MemberJoinRequestDto;
-import youth.week6.member.controller.dto.request.OrganizerJoinRequestDto;
-import youth.week6.member.controller.dto.request.OrganizerMemberJoinRequestDto;
-import youth.week6.member.controller.dto.request.ParticipantJoinRequestDto;
-import youth.week6.member.controller.dto.request.ParticipantMemberJoinRequestDto;
+import youth.week6.member.controller.dto.request.join.MemberJoinRequestDto;
+import youth.week6.member.controller.dto.request.join.OrganizerJoinRequestDto;
+import youth.week6.member.controller.dto.request.join.OrganizerMemberJoinRequestDto;
+import youth.week6.member.controller.dto.request.join.ParticipantJoinRequestDto;
+import youth.week6.member.controller.dto.request.join.ParticipantMemberJoinRequestDto;
+import youth.week6.member.controller.dto.request.login.LoginRequestDto;
+import youth.week6.member.controller.dto.request.update.MemberDetailUpdateRequestDto;
 import youth.week6.member.participant.entity.Allergens;
 import youth.week6.testFixture.AllergensFixture;
 import youth.week6.testUtils.SpringBootTestHelper;
@@ -90,7 +95,7 @@ class MemberControllerTest extends SpringBootTestHelper {
     }
 
     @Test
-    public void 참여자_정보조회 (){
+    public void 참여자_정보조회() {
         //given
         String JWT_토큰 = 참여자_회원가입_JWT_토큰받기();
 
@@ -105,9 +110,8 @@ class MemberControllerTest extends SpringBootTestHelper {
     }
 
 
-
     @Test
-    public void 주최자_정보조회 (){
+    public void 주최자_정보조회() {
         //given
         String JWT_토큰 = 주최자_회원가입_JWT_토큰받기();
 
@@ -120,8 +124,9 @@ class MemberControllerTest extends SpringBootTestHelper {
             () -> 주최자정보_확인됨(회원정보_조회요청_response, 주최자_정보)
         );
     }
+
     @Test
-    public void 중복_회원가입 (){
+    public void 중복_회원가입() {
         //given
         MemberJoinRequestDto 사용자_정보 = 사용자정보_정상입력.회원가입_사용자_요청전문();
         OrganizerJoinRequestDto 주최자_정보 = 주최자정보_정상입력.회원가입_주최자_요청전문();
@@ -137,7 +142,7 @@ class MemberControllerTest extends SpringBootTestHelper {
     }
 
     @Test
-    public void 참여자권한_신청 (){
+    public void 참여자권한_신청() {
         //given
         String JWT토큰 = 주최자_회원가입_JWT_토큰받기();
 
@@ -149,7 +154,7 @@ class MemberControllerTest extends SpringBootTestHelper {
     }
 
     @Test
-    public void 참여자권한_중복신청불가 (){
+    public void 참여자권한_중복신청불가() {
         //given
         String JWT토큰 = 참여자_회원가입_JWT_토큰받기();
 
@@ -161,7 +166,7 @@ class MemberControllerTest extends SpringBootTestHelper {
     }
 
     @Test
-    public void 주최자권한_신청 (){
+    public void 주최자권한_신청() {
         //given
         String JWT토큰 = 참여자_회원가입_JWT_토큰받기();
 
@@ -173,7 +178,7 @@ class MemberControllerTest extends SpringBootTestHelper {
     }
 
     @Test
-    public void 주최자권한_중복신청불가 (){
+    public void 주최자권한_중복신청불가() {
         //given
         String JWT토큰 = 주최자_회원가입_JWT_토큰받기();
 
@@ -182,6 +187,21 @@ class MemberControllerTest extends SpringBootTestHelper {
 
         //then
         주최자권한_추가불가(주최자_권한_요청_response);
+    }
+
+    @Test
+    public void 주최자_정보_업데이트() {
+        //given
+        String JWT_토큰 = 주최자_회원가입_JWT_토큰받기();
+        MemberDetailUpdateRequestDto 요청전문 = new MemberDetailUpdateRequestDto(
+            사용자정보_정상입력_1.사용자_업데이트_요청전문(),
+            주최자정보_정상입력_1.주최자_업데이트_요청전문(), null);
+
+        //when
+        ExtractableResponse<Response> 사용자_정보변경_요청_response = 사용자_정보변경_요청(JWT_토큰, 요청전문);
+
+        //then
+        사용자정보_변경됨(사용자_정보변경_요청_response);
     }
 
     private String 주최자_회원가입_JWT_토큰받기() {

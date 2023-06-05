@@ -7,11 +7,12 @@ import io.restassured.http.Header;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.springframework.http.MediaType;
-import youth.week6.member.controller.dto.request.LoginRequestDto;
-import youth.week6.member.controller.dto.request.OrganizerJoinRequestDto;
-import youth.week6.member.controller.dto.request.OrganizerMemberJoinRequestDto;
-import youth.week6.member.controller.dto.request.ParticipantJoinRequestDto;
-import youth.week6.member.controller.dto.request.ParticipantMemberJoinRequestDto;
+import youth.week6.member.controller.dto.request.login.LoginRequestDto;
+import youth.week6.member.controller.dto.request.join.OrganizerJoinRequestDto;
+import youth.week6.member.controller.dto.request.join.OrganizerMemberJoinRequestDto;
+import youth.week6.member.controller.dto.request.join.ParticipantJoinRequestDto;
+import youth.week6.member.controller.dto.request.join.ParticipantMemberJoinRequestDto;
+import youth.week6.member.controller.dto.request.update.MemberDetailUpdateRequestDto;
 
 public class MemberAcceptanceTestSendUtils {
 
@@ -85,6 +86,19 @@ public class MemberAcceptanceTestSendUtils {
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .header(new Header("Authorization", "Bearer " + JWT토큰))
             .when().patch("/members/organizers")
+            .then().log().all()
+            .extract();
+    }
+
+    public static ExtractableResponse<Response> 사용자_정보변경_요청(String JWT토큰, MemberDetailUpdateRequestDto 요청전문) {
+        String 요청전문_snake_case_변경 = 요청전문_snake_case_변경(요청전문);
+
+        return RestAssured
+            .given().log().all()
+            .body(요청전문_snake_case_변경)
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .header(new Header("Authorization", "Bearer " + JWT토큰))
+            .when().patch("/members")
             .then().log().all()
             .extract();
     }
