@@ -63,7 +63,7 @@ class AllergensRepositoryTest extends SpringBootTestHelper {
         participantsRepository.save(participants);
 
         //when
-        participants.updateAllergens(newAllergens);
+        participants.update(newAllergens, "modifiedDescription");
 
         //then
         assertThat(participants.getAllergensInfo().getParticipantsAllergens())

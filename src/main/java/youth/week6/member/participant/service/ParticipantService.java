@@ -4,6 +4,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import youth.week6.member.dto.ParticipantUpdateDto;
 import youth.week6.member.participant.dto.ParticipantDto;
 import youth.week6.member.dto.ParticipantJoinDto;
 import youth.week6.member.participant.entity.Allergens;
@@ -41,5 +42,19 @@ public class ParticipantService {
             );
 
         return dtoMapper.to(participants);
+    }
+
+    @Transactional
+    public void update(Long participantsId, ParticipantUpdateDto participantUpdateDto) {
+        Participants participants = participantsRepository.findById(participantsId)
+            .orElseThrow(
+                () -> new IllegalArgumentException(
+                    "there is no participant info with " + participantsId)
+            );
+
+        List<Allergens> allergens = allergensRepository.findAllById(
+            participantUpdateDto.getAllergens());
+        participants.update(allergens, participantUpdateDto.getDescription());
+
     }
 }

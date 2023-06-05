@@ -34,8 +34,9 @@ public class Participants {
         this.allergensInfo = new AllergensInfo(this, allergens);
     }
 
-    public void updateAllergens(List<Allergens> allergens) {
+    public void update(List<Allergens> allergens, String description) {
         this.allergensInfo.update(this, allergens);
+        this.description = description;
     }
 
     public List<Allergens> getAllergens() {
