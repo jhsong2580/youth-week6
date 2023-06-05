@@ -1,11 +1,12 @@
 package youth.week6.testFixture;
 
 import youth.week6.member.controller.dto.request.join.MemberJoinRequestDto;
+import youth.week6.member.controller.dto.request.update.MemberDetailUpdateRequestDto.MemberUpdateRequestDto;
 
 public enum MemberFixture {
-    사용자정보_정상입력("name", "1991-07-30", "MAIL", "identification", "New1234!!", "thdwmdgns@naver.com", "자기소개");
-
-
+    사용자정보_정상입력("name", "1991-07-30", "MAIL", "identification", "New1234!!", "thdwmdgns@naver.com", "자기소개"),
+    사용자정보_정상입력_1("name1", "1991-07-31", "FEMALE", "identification1", "New1234!!!", "thdwmdgns1@naver.com", "자기소개1")
+;
     private final String 참여자이름;
     private final String 생년월일;
     private final String 성별;
@@ -27,6 +28,12 @@ public enum MemberFixture {
 
     public MemberJoinRequestDto 회원가입_사용자_요청전문() {
         return new MemberJoinRequestDto(
+            참여자이름, 생년월일, 성별, 아이디, 패스워드, 이메일
+        );
+    }
+
+    public MemberUpdateRequestDto 사용자_업데이트_요청전문() {
+        return new MemberUpdateRequestDto(
             참여자이름, 생년월일, 성별, 아이디, 패스워드, 이메일
         );
     }
