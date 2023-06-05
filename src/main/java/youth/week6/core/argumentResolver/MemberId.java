@@ -1,4 +1,4 @@
-package youth.week6.argumentResolver;
+package youth.week6.core.argumentResolver;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

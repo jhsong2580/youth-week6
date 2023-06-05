@@ -1,4 +1,4 @@
-package youth.week6.configuration.security.filter;
+package youth.week6.security.filter;
 
 import java.io.IOException;
 import javax.servlet.FilterChain;

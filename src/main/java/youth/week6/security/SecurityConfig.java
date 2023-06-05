@@ -1,4 +1,4 @@
-package youth.week6.configuration.security;
+package youth.week6.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +12,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import youth.week6.configuration.security.filter.JwtAuthenticationFilter;
+import youth.week6.security.filter.JwtAuthenticationFilter;
 import youth.week6.member.jwt.service.JwtTokenProvider;
 import youth.week6.member.member.entity.MemberRoles;
 

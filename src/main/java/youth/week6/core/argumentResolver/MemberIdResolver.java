@@ -1,4 +1,4 @@
-package youth.week6.argumentResolver;
+package youth.week6.core.argumentResolver;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
