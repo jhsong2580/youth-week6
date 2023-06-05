@@ -7,9 +7,11 @@ import io.restassured.http.Header;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.springframework.http.MediaType;
-import youth.week6.member.dto.request.LoginRequestDto;
-import youth.week6.member.dto.request.OrganizerMemberJoinRequestDto;
-import youth.week6.member.dto.request.ParticipantMemberJoinRequestDto;
+import youth.week6.member.controller.dto.request.LoginRequestDto;
+import youth.week6.member.controller.dto.request.OrganizerJoinRequestDto;
+import youth.week6.member.controller.dto.request.OrganizerMemberJoinRequestDto;
+import youth.week6.member.controller.dto.request.ParticipantJoinRequestDto;
+import youth.week6.member.controller.dto.request.ParticipantMemberJoinRequestDto;
 
 public class MemberAcceptanceTestSendUtils {
 
@@ -57,6 +59,32 @@ public class MemberAcceptanceTestSendUtils {
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .header(new Header("Authorization", "Bearer " + JWT토큰))
             .when().get("/members")
+            .then().log().all()
+            .extract();
+    }
+
+    public static ExtractableResponse<Response> 참여자_권한_요청(String JWT토큰, ParticipantJoinRequestDto 요청전문) {
+        String 요청전문_snake_case_변경 = 요청전문_snake_case_변경(요청전문);
+
+        return RestAssured
+            .given().log().all()
+            .body(요청전문_snake_case_변경)
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .header(new Header("Authorization", "Bearer " + JWT토큰))
+            .when().patch("/members/participants")
+            .then().log().all()
+            .extract();
+    }
+
+    public static ExtractableResponse<Response> 주최자_권한_요청(String JWT토큰, OrganizerJoinRequestDto 요청전문) {
+        String 요청전문_snake_case_변경 = 요청전문_snake_case_변경(요청전문);
+
+        return RestAssured
+            .given().log().all()
+            .body(요청전문_snake_case_변경)
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .header(new Header("Authorization", "Bearer " + JWT토큰))
+            .when().patch("/members/organizers")
             .then().log().all()
             .extract();
     }

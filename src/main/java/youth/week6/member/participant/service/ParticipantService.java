@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import youth.week6.member.participant.dto.ParticipantDto;
-import youth.week6.member.participant.dto.ParticipantJoinDto;
+import youth.week6.member.dto.ParticipantJoinDto;
 import youth.week6.member.participant.entity.Allergens;
 import youth.week6.member.participant.entity.Participants;
 import youth.week6.member.participant.mapper.ParticipantsToParticipantsDtoMapper;

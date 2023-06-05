@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import youth.week6.member.organizer.dto.OrganizerDto;
-import youth.week6.member.organizer.dto.OrganizerJoinDto;
+import youth.week6.member.dto.OrganizerJoinDto;
 import youth.week6.member.organizer.entity.Organizers;
 import youth.week6.member.organizer.repository.OrganizersRepository;
 

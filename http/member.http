@@ -47,3 +47,14 @@ Content-Type: application/json
 GET {{host}}/members
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+
+###
+PATCH {{host}}/members/participants
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+"description" : "description",
+"allergens" : [41, 42, 43, 44]
+}

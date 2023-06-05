@@ -5,11 +5,11 @@ import java.util.stream.Collectors;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.util.ObjectUtils;
-import youth.week6.member.dto.response.AllergenResponseDto;
-import youth.week6.member.dto.response.MemberDetailResponseDto;
-import youth.week6.member.dto.response.MemberResponseDto;
-import youth.week6.member.dto.response.OrganizerResponseDto;
-import youth.week6.member.dto.response.ParticipantResponseDto;
+import youth.week6.member.controller.dto.response.MemberDetailResponseDto;
+import youth.week6.member.controller.dto.response.MemberDetailResponseDto.AllergenResponseDto;
+import youth.week6.member.controller.dto.response.MemberDetailResponseDto.MemberResponseDto;
+import youth.week6.member.controller.dto.response.MemberDetailResponseDto.OrganizerResponseDto;
+import youth.week6.member.controller.dto.response.MemberDetailResponseDto.ParticipantResponseDto;
 import youth.week6.member.member.dto.MemberDto;
 import youth.week6.member.organizer.dto.OrganizerDto;
 import youth.week6.member.participant.dto.ParticipantDto;
@@ -27,10 +27,8 @@ public interface DtosToMemberDetailResponseDtoMapper {
     );
 
 
-
-
     default ParticipantResponseDto getParticipantResponseDto(ParticipantDto participantDto) {
-        if(ObjectUtils.isEmpty(participantDto)) {
+        if (ObjectUtils.isEmpty(participantDto)) {
             return null;
         }
 
@@ -47,7 +45,7 @@ public interface DtosToMemberDetailResponseDtoMapper {
     }
 
     default OrganizerResponseDto getOrganizerResponseDto(OrganizerDto organizerDto) {
-        if(ObjectUtils.isEmpty(organizerDto)) {
+        if (ObjectUtils.isEmpty(organizerDto)) {
             return null;
         }
 

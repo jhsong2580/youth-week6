@@ -6,7 +6,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import youth.week6.member.member.dto.MemberDto;
-import youth.week6.member.member.dto.MemberJoinDto;
+import youth.week6.member.dto.MemberJoinDto;
 import youth.week6.member.member.entity.Members;
 import youth.week6.member.member.mapper.MemberToMemberDtoMapper;
 import youth.week6.member.member.repository.MembersRepository;
@@ -69,5 +69,27 @@ public class MemberService {
             );
 
         return dtoMapper.to(members);
+    }
+
+    @Transactional
+    public void mapParticipantInfo(long memberId, long participantId) {
+        Members members = membersRepository.findById(memberId)
+            .orElseThrow(
+                () -> new IllegalArgumentException(
+                    "there is no member info with " + memberId)
+            );
+
+        members.mappingParticipantsInfo(participantId);
+    }
+
+    @Transactional
+    public void mapOrganizerInfo(long memberId, long organizerId) {
+        Members members = membersRepository.findById(memberId)
+            .orElseThrow(
+                () -> new IllegalArgumentException(
+                    "there is no member info with " + memberId)
+            );
+
+        members.mappingOrganizerInfo(organizerId);
     }
 }

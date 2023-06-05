@@ -8,11 +8,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import youth.week6.member.member.dto.MemberJoinDto;
+import youth.week6.member.dto.MemberJoinDto;
 import youth.week6.member.member.entity.Members;
 import youth.week6.member.member.entity.Sex;
-import youth.week6.member.member.entity.embeded.AuthenticationInfo;
-import youth.week6.member.member.entity.embeded.MemberInfo;
 import youth.week6.member.member.repository.MembersRepository;
 import youth.week6.testUtils.SpringBootTestHelper;
 

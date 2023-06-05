@@ -1,4 +1,4 @@
-package youth.week6.member.member.dto;
+package youth.week6.member.dto;
 
 import java.time.LocalDateTime;
 import java.time.YearMonth;

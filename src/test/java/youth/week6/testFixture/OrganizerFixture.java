@@ -1,6 +1,6 @@
 package youth.week6.testFixture;
 
-import youth.week6.member.dto.request.OrganizerJoinRequestDto;
+import youth.week6.member.controller.dto.request.OrganizerJoinRequestDto;
 
 public enum OrganizerFixture {
     주최자정보_정상입력("COMPANY");

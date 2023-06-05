@@ -1,12 +1,13 @@
 package youth.week6.member.member.entity;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import youth.week6.member.member.dto.MemberJoinDto;
+import youth.week6.member.dto.MemberJoinDto;
 
 class MembersTest {
 
@@ -104,5 +105,31 @@ class MembersTest {
                     MemberRoles.USER
                 )
             );
+    }
+
+    @Test
+    @DisplayName("참여자 정보를 중복 등록하면 에러가 발생한다")
+    public void test6 (){
+        //given
+        Members members = Members.from(memberJoinDto);
+        members.mappingParticipantsInfo(1L);
+
+        //when & then
+        assertThatThrownBy(
+            () -> members.mappingParticipantsInfo(2L)
+        ).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("주최자 정보를 중복 등록하면 에러가 발생한다")
+    public void test7 (){
+        //given
+        Members members = Members.from(memberJoinDto);
+        members.mappingOrganizerInfo(1L);
+
+        //when & then
+        assertThatThrownBy(
+            () -> members.mappingOrganizerInfo(2L)
+        ).isInstanceOf(IllegalArgumentException.class);
     }
 }

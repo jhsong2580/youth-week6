@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import youth.week6.member.member.dto.MemberJoinDto;
+import youth.week6.member.dto.MemberJoinDto;
 import youth.week6.member.member.entity.embeded.AuthenticationInfo;
 import youth.week6.member.member.entity.embeded.MemberInfo;
 
@@ -54,11 +54,19 @@ public class Members {
     }
 
     public void mappingParticipantsInfo(long participantsId) {
+        if(this.authenticationInfo.hasRole(MemberRoles.PARTICIPANT)) {
+            throw new IllegalArgumentException("member " + this.id + "already map participantInfo");
+        }
+
         this.participantsId = participantsId;
         this.authenticationInfo.addRole(MemberRoles.PARTICIPANT);
     }
 
     public void mappingOrganizerInfo(long organizerId) {
+        if(this.authenticationInfo.hasRole(MemberRoles.ORGANIZER)) {
+            throw new IllegalArgumentException("member " + this.id + "already map organizerInfo");
+        }
+
         this.organizerId = organizerId;
         this.authenticationInfo.addRole(MemberRoles.ORGANIZER);
     }

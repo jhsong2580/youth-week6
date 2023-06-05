@@ -1,4 +1,4 @@
-package youth.week6.member.organizer.dto;
+package youth.week6.member.dto;
 
 import lombok.Getter;
 
