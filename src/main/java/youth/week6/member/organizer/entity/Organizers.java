@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import youth.week6.member.dto.OrganizerUpdateDto;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -23,5 +24,9 @@ public class Organizers {
 
     public Organizers(String belong) {
         this.belong = belong;
+    }
+
+    public void update(OrganizerUpdateDto organizerUpdateDto) {
+        this.belong = organizerUpdateDto.getBelong();
     }
 }

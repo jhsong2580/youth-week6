@@ -3,6 +3,7 @@ package youth.week6.member.organizer.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import youth.week6.member.dto.OrganizerUpdateDto;
 import youth.week6.member.organizer.dto.OrganizerDto;
 import youth.week6.member.dto.OrganizerJoinDto;
 import youth.week6.member.organizer.entity.Organizers;
@@ -32,5 +33,16 @@ public class OrganizerService {
             );
 
         return new OrganizerDto(organizers.getId(), organizers.getBelong());
+    }
+
+    @Transactional
+    public void update(Long organizerId, OrganizerUpdateDto organizerUpdateDto) {
+        Organizers organizers = organizersRepository.findById(organizerId)
+            .orElseThrow(
+                () -> new IllegalArgumentException(
+                    "there is no organizer info with " + organizerId)
+            );
+
+        organizers.update(organizerUpdateDto);
     }
 }
