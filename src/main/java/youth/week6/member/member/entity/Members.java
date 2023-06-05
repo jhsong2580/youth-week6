@@ -1,5 +1,6 @@
 package youth.week6.member.member.entity;
 
+import java.util.EnumSet;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import youth.week6.member.dto.MemberJoinDto;
+import youth.week6.member.dto.MemberUpdateDto;
 import youth.week6.member.member.entity.embeded.AuthenticationInfo;
 import youth.week6.member.member.entity.embeded.MemberInfo;
 
@@ -79,5 +81,30 @@ public class Members {
     public void unMappingOrganizerInfo() {
         this.organizerId = null;
         this.authenticationInfo.removeRole(MemberRoles.ORGANIZER);
+    }
+
+    public void update(MemberUpdateDto memberUpdateDto) {
+        this.authenticationInfo = getNewAuthenticationInfo(memberUpdateDto);
+        this.memberInfo = getNewMemberInfo(memberUpdateDto);
+    }
+
+    private MemberInfo getNewMemberInfo(MemberUpdateDto memberUpdateDto) {
+        return new MemberInfo(
+            memberUpdateDto.getName(),
+            memberUpdateDto.getBirthDate(),
+            memberUpdateDto.getSex(),
+            memberUpdateDto.getEmail()
+        );
+    }
+
+    private AuthenticationInfo getNewAuthenticationInfo(MemberUpdateDto memberUpdateDto) {
+        EnumSet<MemberRoles> roles = this.authenticationInfo.getRoles();
+        AuthenticationInfo newAuthenticationInfo = new AuthenticationInfo(
+            memberUpdateDto.getIdentification(), memberUpdateDto.getPassword());
+        for (MemberRoles role : roles) {
+            newAuthenticationInfo.addRole(role);
+        }
+
+        return newAuthenticationInfo;
     }
 }

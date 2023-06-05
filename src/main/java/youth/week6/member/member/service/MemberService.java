@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import youth.week6.member.dto.MemberUpdateDto;
 import youth.week6.member.member.dto.MemberDto;
 import youth.week6.member.dto.MemberJoinDto;
 import youth.week6.member.member.entity.Members;
@@ -91,5 +92,16 @@ public class MemberService {
             );
 
         members.mappingOrganizerInfo(organizerId);
+    }
+
+    @Transactional
+    public void update(Long memberId, MemberUpdateDto memberUpdateDto) {
+        Members members = membersRepository.findById(memberId)
+            .orElseThrow(
+                () -> new IllegalArgumentException(
+                    "there is no member info with " + memberId)
+            );
+
+        members.update(memberUpdateDto);
     }
 }
