@@ -1,4 +1,4 @@
-package youth.week6.member.mapper;
+package youth.week6.member.controller.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

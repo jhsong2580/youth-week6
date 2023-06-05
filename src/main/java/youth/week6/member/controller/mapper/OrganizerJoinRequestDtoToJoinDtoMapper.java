@@ -1,9 +1,7 @@
-package youth.week6.member.mapper;
+package youth.week6.member.controller.mapper;
 
 import org.mapstruct.Mapper;
-import youth.week6.member.dto.request.MemberJoinRequestDto;
 import youth.week6.member.dto.request.OrganizerJoinRequestDto;
-import youth.week6.member.member.dto.MemberJoinDto;
 import youth.week6.member.organizer.dto.OrganizerJoinDto;
 
 @Mapper(componentModel = "spring")

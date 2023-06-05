@@ -12,6 +12,7 @@ import youth.week6.member.organizer.service.OrganizerService;
 import youth.week6.member.participant.dto.ParticipantDto;
 import youth.week6.member.participant.dto.ParticipantJoinDto;
 import youth.week6.member.participant.service.ParticipantService;
+import youth.week6.member.service.dto.MemberDetailDto;
 
 @Service
 @RequiredArgsConstructor
@@ -35,5 +36,17 @@ public class MemberFacadeService {
         MemberDto memberDto = memberService.joinOrganizers(memberJoinDto, organizerDto.getId());
 
         return memberDto.getId();
+    }
+
+    @Transactional(readOnly = true)
+    public MemberDetailDto get(long memberId) {
+        MemberDto memberDto = memberService.get(memberId);
+        ParticipantDto participantDto =
+            memberDto.getParticipantsId() != null ? participantService.get(
+                memberDto.getParticipantsId()) : null;
+        OrganizerDto organizerDto = memberDto.getOrganizerId() != null ? organizerService.get(
+            memberDto.getOrganizerId()) : null;
+
+        return new MemberDetailDto(memberDto, participantDto, organizerDto);
     }
 }
