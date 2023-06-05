@@ -15,21 +15,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import youth.week6.argumentResolver.MemberId;
-import youth.week6.member.controller.dto.request.login.LoginRequestDto;
 import youth.week6.member.controller.dto.request.join.OrganizerJoinRequestDto;
 import youth.week6.member.controller.dto.request.join.OrganizerMemberJoinRequestDto;
 import youth.week6.member.controller.dto.request.join.ParticipantJoinRequestDto;
 import youth.week6.member.controller.dto.request.join.ParticipantMemberJoinRequestDto;
+import youth.week6.member.controller.dto.request.login.LoginRequestDto;
+import youth.week6.member.controller.dto.request.update.MemberDetailUpdateRequestDto;
 import youth.week6.member.controller.dto.response.MemberDetailResponseDto;
 import youth.week6.member.controller.dto.response.MemberJoinResponseDto;
-import youth.week6.member.jwt.dto.TokenInfo;
 import youth.week6.member.controller.mapper.DtosToMemberDetailResponseDtoMapper;
-import youth.week6.member.controller.mapper.MemberJoinRequestDtoToJoinDtoMapper;
-import youth.week6.member.controller.mapper.OrganizerJoinRequestDtoToJoinDtoMapper;
-import youth.week6.member.controller.mapper.ParticipantJoinRequestDtoToJoinDtoMapper;
+import youth.week6.member.controller.mapper.JoinDtoMapper;
 import youth.week6.member.dto.MemberJoinDto;
 import youth.week6.member.dto.OrganizerJoinDto;
 import youth.week6.member.dto.ParticipantJoinDto;
+import youth.week6.member.jwt.dto.TokenInfo;
 import youth.week6.member.service.LoginFacadeService;
 import youth.week6.member.service.MemberFacadeService;
 import youth.week6.member.service.dto.MemberDetailDto;
@@ -41,10 +40,9 @@ public class MemberController {
 
     private final MemberFacadeService memberFacadeService;
     private final LoginFacadeService loginFacadeService;
-    private final MemberJoinRequestDtoToJoinDtoMapper memberJoinDtoMapper;
-    private final OrganizerJoinRequestDtoToJoinDtoMapper organizerJoinDtoMapper;
-    private final ParticipantJoinRequestDtoToJoinDtoMapper participantJoinDtoMapper;
+    private final JoinDtoMapper memberJoinDtoMapper;
     private final DtosToMemberDetailResponseDtoMapper detailResponseDtoMapper;
+
     @PostMapping("/participants")
     public ResponseEntity<?> join(
         @Validated @RequestBody ParticipantMemberJoinRequestDto participantMemberJoinRequestDto,
@@ -61,7 +59,7 @@ public class MemberController {
 
         MemberJoinDto memberJoinDto = memberJoinDtoMapper.to(
             participantMemberJoinRequestDto.getMember());
-        ParticipantJoinDto participantJoinDto = participantJoinDtoMapper.to(
+        ParticipantJoinDto participantJoinDto = memberJoinDtoMapper.to(
             participantMemberJoinRequestDto.getParticipant());
 
         long memberId = memberFacadeService.join(memberJoinDto, participantJoinDto);
@@ -86,7 +84,7 @@ public class MemberController {
 
         MemberJoinDto memberJoinDto = memberJoinDtoMapper.to(
             organizerMemberJoinRequestDto.getMember());
-        OrganizerJoinDto organizerJoinDto = organizerJoinDtoMapper.to(
+        OrganizerJoinDto organizerJoinDto = memberJoinDtoMapper.to(
             organizerMemberJoinRequestDto.getOrganizer());
 
         long memberId = memberFacadeService.join(memberJoinDto, organizerJoinDto);
@@ -116,7 +114,7 @@ public class MemberController {
     }
 
     @GetMapping()
-    public ResponseEntity<?> retrieveMember (@MemberId Long memberId){
+    public ResponseEntity<?> retrieveMember(@MemberId Long memberId) {
         MemberDetailDto memberDetailDto = memberFacadeService.get(memberId);
 
         MemberDetailResponseDto memberDetailResponseDto = detailResponseDtoMapper.to(
@@ -143,7 +141,7 @@ public class MemberController {
             return ResponseEntity.badRequest().body(errors);
         }
 
-        ParticipantJoinDto participantJoinDto = participantJoinDtoMapper.to(participantJoinRequestDto);
+        ParticipantJoinDto participantJoinDto = memberJoinDtoMapper.to(participantJoinRequestDto);
 
         memberFacadeService.joinParticipant(memberId, participantJoinDto);
 
@@ -165,7 +163,7 @@ public class MemberController {
             return ResponseEntity.badRequest().body(errors);
         }
 
-        OrganizerJoinDto organizerJoinDto = organizerJoinDtoMapper.to(organizerJoinRequestDto);
+        OrganizerJoinDto organizerJoinDto = memberJoinDtoMapper.to(organizerJoinRequestDto);
 
         memberFacadeService.joinOrganizer(memberId, organizerJoinDto);
 
