@@ -52,11 +52,22 @@ public class MemberService {
     private Members saveMembersByMemberJoinDto(MemberJoinDto memberJoinDto) {
         Members members = Members.from(memberJoinDto);
 
-        try{
+        try {
             membersRepository.save(members);
-        }catch(DataIntegrityViolationException e){
+        } catch (DataIntegrityViolationException e) {
             throw new IllegalArgumentException("duplicated identification join request");
         }
         return members;
+    }
+
+    @Transactional(readOnly = true)
+    public MemberDto get(long memberId) {
+        Members members = membersRepository.findById(memberId)
+            .orElseThrow(
+                () -> new IllegalArgumentException(
+                    "there is no member info with " + memberId)
+            );
+
+        return dtoMapper.to(members);
     }
 }

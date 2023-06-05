@@ -3,6 +3,7 @@ package youth.week6.configuration.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
@@ -30,8 +31,10 @@ public class SecurityConfig {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
-            .antMatchers("/members/login").permitAll()
-            .antMatchers("/**").hasRole(MemberRoles.ORGANIZER.name())
+            .antMatchers("/members/login").permitAll() // Login All Permit
+            .antMatchers(HttpMethod.POST, "/members/organizers").permitAll() // Member Join All Permit
+            .antMatchers(HttpMethod.POST, "/members/participants").permitAll() // Member Join All Permit
+            .antMatchers("/**").hasRole(MemberRoles.USER.name())
             .anyRequest().authenticated()
             .and()
             .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);

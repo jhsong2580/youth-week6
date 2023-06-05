@@ -39,11 +39,11 @@ POST {{host}}/members/login
 Content-Type: application/json
 
 {
-  "identification" : "jhsong2580123",
+  "identification" : "jhsong258012456",
   "password" : "New1234!!"
 }
 
 ###
-GET {{host}}/members/test
+GET {{host}}/members
 Content-Type: application/json
 Authorization: Bearer {{token}}

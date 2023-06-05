@@ -31,4 +31,15 @@ public class ParticipantService {
 
         return dtoMapper.to(participants);
     }
+
+    @Transactional(readOnly = true)
+    public ParticipantDto get(long participantId) {
+        Participants participants = participantsRepository.findById(participantId)
+            .orElseThrow(
+                () -> new IllegalArgumentException(
+                    "there is no participant info with " + participantId)
+            );
+
+        return dtoMapper.to(participants);
+    }
 }

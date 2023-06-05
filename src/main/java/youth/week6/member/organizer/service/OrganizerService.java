@@ -23,4 +23,14 @@ public class OrganizerService {
         return new OrganizerDto(organizers.getId(), organizerJoinDto.getBelong());
     }
 
+    @Transactional(readOnly = true)
+    public OrganizerDto get(long organizerId) {
+        Organizers organizers = organizersRepository.findById(organizerId)
+            .orElseThrow(
+                () -> new IllegalArgumentException(
+                    "there is no organizer info with " + organizerId)
+            );
+
+        return new OrganizerDto(organizers.getId(), organizers.getBelong());
+    }
 }

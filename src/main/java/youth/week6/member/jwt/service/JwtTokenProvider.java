@@ -36,41 +36,52 @@ public class JwtTokenProvider {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
+    public long getMemberId(String jwtToken) {
+        Claims claims = parseClaims(jwtToken);
+        Long memberId = claims.get("id", Long.class);
+
+        if (memberId == null) {
+            throw new IllegalArgumentException("Invalid Token Access");
+        }
+
+        return memberId;
+    }
+
     public TokenInfo generateToken(CustomAuthenticationToken authentication, String memberId) {
         // 권한 가져오기
         String authorities = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(","));
+            .map(GrantedAuthority::getAuthority)
+            .collect(Collectors.joining(","));
 
         long expireTime = (new Date()).getTime() + TOKEN_LIFE_TIME_MILLISECOND;
 
         // Access Token 생성
         Date accessTokenExpiresIn = new Date(expireTime);
         String accessToken = Jwts.builder()
-                .setSubject(authentication.getName())
-                .claim("auth", authorities)
-                .claim("id", authentication.getMemberId())
-                .setExpiration(accessTokenExpiresIn)
-                .signWith(key, SignatureAlgorithm.HS256)
-                .compact();
- 
+            .setSubject(authentication.getName())
+            .claim("auth", authorities)
+            .claim("id", authentication.getMemberId())
+            .setExpiration(accessTokenExpiresIn)
+            .signWith(key, SignatureAlgorithm.HS256)
+            .compact();
+
         return TokenInfo.builder()
-                .grantType("Bearer")
-                .accessToken(accessToken)
-                .build();
+            .grantType("Bearer")
+            .accessToken(accessToken)
+            .build();
     }
 
     public Authentication getAuthentication(String accessToken) {
         Claims claims = parseClaims(accessToken);
- 
+
         if (claims.get("auth") == null) {
-            throw new RuntimeException("권한 정보가 없는 토큰입니다.");
+            throw new IllegalArgumentException("Invalid Token Access");
         }
 
         Collection<? extends GrantedAuthority> authorities =
-                Arrays.stream(claims.get("auth").toString().split(","))
-                        .map(SimpleGrantedAuthority::new)
-                        .collect(Collectors.toList());
+            Arrays.stream(claims.get("auth").toString().split(","))
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
 
         UserDetails principal = new User(claims.getSubject(), "", authorities);
         return new UsernamePasswordAuthenticationToken(principal, "", authorities);
@@ -91,10 +102,11 @@ public class JwtTokenProvider {
         }
         return false;
     }
- 
+
     private Claims parseClaims(String accessToken) {
         try {
-            return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();
+            return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken)
+                .getBody();
         } catch (ExpiredJwtException e) {
             return e.getClaims();
         }
